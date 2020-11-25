@@ -298,7 +298,7 @@ class recommendationDeleteView(DeleteView):
 
 # ПАЦИЕНТ
 def index(request):
-    return render(request, 'app/diagnostik.html')
+    return render(request, 'app/index.html')
 
 
 def personal_data(request):
