@@ -1,0 +1,89 @@
+{% extends 'app/doctor/base_nav.html' %} 
+
+{% load static %} 
+
+{% block title %}Личный кабинет{% endblock title %} 
+
+{% block content %}
+
+<section class="main">
+    <div class="container">
+        <div class="main_inner">
+            <div class="main_left_block">
+                <div class="card">
+                    <p class="card_fio">{{request.user}}</p>
+                    <p class="card_position">{{request.user.positions_doctor.positions_name }}</p>
+                </div>
+                <div class="statistic">
+                    {% if elements %}
+                    <table class="table profile_doctor" border="0" cellspacing="0">
+                        <tr class="header_table black_title">
+                            <td width='100%' colspan="2">Статистика заболеваемости</td>
+                        </tr>
+                        <tr class="header_table">
+                            <th>Заболевание</th>
+                            <th>Количество больных</th>
+                        </tr>
+                        {% for el in elements %}
+                        <tr class="header_table">
+                            <td>{{ el.name_disease }}</td>
+                            <td class="color">{{ el.number_of_patients }}</td>
+                        </tr>
+                        {% endfor %} 
+                        {% else %}
+                        <tr class="header_table">
+                            <td width=90%>
+                                <p style="margin:20px 20px 20px 20px" class="input_title">Нет записей</p>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+                <!-- /.statistic -->
+            </div>
+            <!-- /.main_left_block -->
+            <div class="main_right_block">
+                <div class="main_right_elements">
+                {% if info %}
+                    <table class="table profile_doctor" border="0" cellspacing="0">
+                        <tr class="header_table black_title">
+                            <td colspan="5">Пациенты направленные к вам</td>
+                        </tr>
+                        <tr class="header_table">
+                            <th>ФИО</th>
+                            <th>Дата рождения</th>
+                            <th>Пол</th>
+                            <th>Сан. просвещение</th>
+                            <th>Мед.карта</th>
+                        </tr>
+                        {% for patient in info.patients.all %}
+                            <tr class="header_table">
+                                <td>{{ patient.surname_patient }} {{ patient.name_patient }} {{ patient.middlename_patient }}</td>
+                                <td class="color">{{ patient.birthday_patient }}</td>
+                                <td>{{ patient.gender_patient }}</td>
+                                <td class="color">{{ patient.enlightenment_patient }}</td>
+                                <td>{{ patient.number_of_medical_card }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% else %}
+                            <tr class="header_table">
+                            <td width=90%><p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p></td>
+                            </tr>
+                        {% endif %}
+                    </table>
+                </div>
+                <!-- /.main_right_elements -->
+                <form class="search_profile" action="{% url 'profile' %}" method="GET">
+                    {% csrf_token %}
+                    <input type="text" class="search_profile_bottom" name="search" placeholder="Поиск по пациентам..." />
+                    <button type="submit" class="bottom_button">ПОИСК</button>
+                </form>
+            </div>
+            <!-- /.main_right_block -->
+        </div>
+        <!-- /.main_inner -->
+    </div>
+    <!-- /.container -->
+</section>
+<!-- /.main -->
+{% endblock content %}

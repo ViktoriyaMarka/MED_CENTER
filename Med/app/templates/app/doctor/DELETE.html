@@ -1,0 +1,36 @@
+{% extends 'app/doctor/base_nav.html' %} 
+
+{% load static %} 
+
+{% block title %}Удаление{% endblock title %} 
+
+{% block content %}
+
+<section class="main">
+    <div class="container">
+        <div class="header">
+            <div class="header_conatiner">
+                <h1 class="header_title">УДАЛЕНИЕ</h1>
+            </div>
+            <!-- /.header_conatiner -->
+        </div>
+        <!-- /.header -->
+        <form method="POST" class="section">
+        {% csrf_token %}
+            <div class="right_block delete">
+                <p class="delete_title">Вы действительно хотите удалить запись?</p>
+                <p class="delete_subtitle">Данные безвозвратно будут удалены</p>
+                <div class="delete_buttons">
+                    <input style="background-color:#521317" class="bottom_delete" type="submit" value="УДАЛИТЬ">
+                    <a href="" class="bottom_delete">ОТМЕНА</a>
+                </div>
+                <!-- /.delete_buttons -->
+            </div>
+            <!-- right_block -->
+        </form>
+        <!-- /.section -->
+    </div>
+    <!-- /.container -->
+</section>
+<!-- /.main -->
+{% endblock content %}

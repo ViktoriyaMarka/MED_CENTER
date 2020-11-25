@@ -1,0 +1,163 @@
+{% extends 'app/BASE.html' %} 
+
+{% load static %} 
+
+{% block title %}Кабинет диагностики{% endblock %} 
+
+{% block content %}
+<section class="title">
+    <div class="all_container">
+        <div class="title_inner">
+            <h1 class="name">КАБИНЕТ ДИАГНОСТИКИ
+            </h1>
+            <h2 class="subname">Предоставление персональной информации</h2>
+        </div>
+        <!-- /.title_inner -->
+    </div>
+    <!-- /.title_container -->
+</section>
+<!-- /.title -->
+
+<section class="main">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="all_container">
+            <div class="main_inner">
+                <div class="input_items">
+                    <div class="input_item">
+                        <p class="input_title">Введите фамилию</p>
+                        <div class="input_elements">
+                            {{ form.surname_patient }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите имя</p>
+                        <div class="input_elements">
+                            {{ form.name_patient }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите отчество</p>
+                        <div class="input_elements">
+                            {{ form.middlename_patient }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Укажите дату рождения</p>
+                        <div class="input_elements">
+                            <input type="date" class="input_text" name="birthday_patient" />
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Укажите пол</p>
+                        <div class="input_elements">
+                            <select class="input_text" name="gender_patient">
+                                <option></option>
+                                <option>Мужской</option>
+                                <option>Женский</option>
+                            </select>
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Укажите уровень санитарного просвещения</p>
+                        <div class="input_elements">
+                            <select class="input_text" name="enlightenment_patient">
+                                <option></option>
+                                <option>Не просвещён</option>
+                                <option>Достаточно просвещён</option>
+                                <option>Просвещён</option>
+                            </select>
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите номер медицинской карты</p>
+                        <div class="input_elements">
+                            {{ form.number_of_medical_card }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                </div>
+                <!-- /.input_items -->
+                <div class="main_right_block">
+                    <div class="input_items">
+                        <div class="input_item">
+                            <p class="input_title">Что вас беспокоит?</p>
+                            <div class="input_elements">
+                                {{ form.symptoms_patient }}
+                            </div>
+                            <!-- /.input_elements -->
+                            <p class="ctrl">*Зажмите Ctrl, чтобы выбрать несколько</p>
+                        </div>
+                        <!-- /.input_item -->
+                        <div class="input_item">
+                            <p class="input_title">
+                                Выберите болезни, которыми вы болели в детстве
+                            </p>
+                            <div class="input_elements">
+                                {{ form.childhood_diseases }}
+                            </div>
+                            <!-- /.input_elements -->
+                            <p class="ctrl">*Зажмите Ctrl, чтобы выбрать несколько</p>
+                        </div>
+                        <!-- /.input_item -->
+                        <div class="input_item">
+                            <p for="id_select" class="input_title">
+                                Выберите болезни, которыми были больны ваши родственники
+                            </p>
+                            <div class="input_elements">
+                                {{ form.relatives_diseases }}
+                            {% comment %} <select name="relatives_diseases" id="id_select"  class="input_text process" multiple="multiple"> {% endcomment %}
+                            {% comment %} {% for el in elements %} {% endcomment %}
+                                {% comment %} {% for s in el.relatives_diseases.all %} {% endcomment %}
+                                    {% comment %} {% if s.status_genetic_predisposition %} {% endcomment %}
+                                        {% comment %} <option value="{{el.id}}">{{ el.name_disease }}</option> {% endcomment %}
+                                    {% comment %} {% endif %} {% endcomment %}
+                                {% comment %} {% endfor %} {% endcomment %}
+                            {% comment %} {% endfor %} {% endcomment %}
+                            {% comment %} </select> {% endcomment %}
+                            </div>
+                            <!-- /.input_elements -->
+                            <p class="ctrl">*Зажмите Ctrl, чтобы выбрать несколько</p>
+                        </div>
+                        <!-- /.input_item -->
+                    </div>
+                    <!-- /.input_items -->
+                </div>
+                <!-- /.main_right_block -->
+            </div>
+            <!-- /.main_inner -->
+            <div class="input_item">
+                <p class="input_title bigest_title">
+                    В случае, если у вас есть хронические заболевания опишите их
+                </p>
+                <div class="input_elements">
+                    {{ form.chronic_disease }}
+                </div>
+                <!-- /.input_elements -->
+            </div>
+            <!-- /.input_item -->
+            <div class="bottom_buttons">
+            <button class="main_link">ПРОЙТИ ДИАГНОСТИКУ</button>
+                {% comment %} <a class="main_link" href="{{ elements.get_absolute_url }}">ПРОЙТИ ДИАГНОСТИКУ</a> {% endcomment %}
+                <p>Нажимая на кнопку вы соглашаетесь на обработку персональных данных</p>
+            </div>
+            <!-- /.bottom_buttons -->
+        </div>
+        <!-- /.all_container -->
+    </form>
+</section>
+<!-- /.main -->
+{% endblock %}

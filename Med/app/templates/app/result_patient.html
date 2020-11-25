@@ -1,0 +1,46 @@
+{% extends 'app/BASE.html' %} {% load static %} {% block title %}Результат диагностики{% endblock %} {% block content %}
+<section class="title">
+    <div class="all_container">
+        <div class="title_inner">
+            <h1 class="name">РЕЗУЛЬТАТ ДИАГНОСТИКИ</h1>
+            <h2 class="subname">Ознакомьтесь с результатом первичной диагностики</h2>
+        </div>
+        <!-- /.title_inner -->
+    </div>
+    <!-- /.title_container -->
+</section>
+<!-- /.title -->
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <section class="main">
+        <div class="all_container">
+            <div class="result_block">
+                <div class="export_block">
+                    <a href="#"><i class="fas fa-download"></i></a>
+                </div>
+                <!-- /.export_block -->
+                <div class="result_inner">
+                    <p class="result_title">РЕКОМЕНДАЦИЯ</p>
+                    <div class="result_subtitles">
+                        <p class="result_subtitle">ФИО пациента:</p>
+                        <p class="result_subtitle">День рождение пациента:</p>
+                        <p class="result_subtitle">Номер медицинской карты:</p>
+                        <p class="result_subtitle">Симптомы:</p>
+                        <p class="result_subtitle">Болезни детства:</p>
+                        <p class="result_subtitle">Болезни у родственников:</p>
+                        <p class="result_subtitle">Хронические заболевания:</p>
+                        <p class="result_subtitle">Вы направлены ко врачу:</p>
+                        <p class="result_subtitle date">Дата выдачи:</p>
+                    </div>
+                    <!-- /.result_subtitles -->
+                </div>
+                <!-- /.result_inner -->
+            </div>
+            <!-- /.result_block -->
+        </div>
+        <!-- /.all_container -->
+    </section>
+    <!-- /.main -->
+</form>
+{% endblock %}

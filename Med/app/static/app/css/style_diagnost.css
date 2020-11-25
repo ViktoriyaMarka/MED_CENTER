@@ -1,0 +1,464 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+.main {
+  margin-bottom: 66px;
+}
+
+.header {
+  padding: 15px 0;
+  background-color: #dcdcdc;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1079px;
+}
+
+.header_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav_img {
+  width: 20px;
+  height: 26px;
+}
+
+.nav_link {
+  margin-right: 61px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 24px;
+  color: #000000;
+  text-decoration: none;
+}
+
+.nav_link:last-child {
+  margin-right: 0;
+}
+
+.title {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.all_container {
+  max-width: 1079px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.title_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 43px;
+  color: #3f3f3f;
+}
+
+.subname {
+  width: 393px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #3f3f3f;
+}
+
+.input_item {
+  margin-bottom: 23px;
+}
+
+.input_item:last-child {
+  margin-bottom: 0;
+}
+
+.input_title {
+  margin-bottom: 5px;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 24px;
+  color: #3f3f3f;
+}
+
+.main_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.input_text {
+  padding: 10px;
+  font-size: 15px;
+  width: 500px;
+  height: 40px;
+}
+
+.input_text.report {
+  resize: vertical;
+  height: 200px;
+}
+
+.input_elements {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.main_right_block {
+  padding: 15px 20px 15px 25px;
+  background-color: #eeeeee;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+}
+
+.main_button {
+  padding: 14px 125px;
+  margin-top: 25px;
+  width: 500px;
+  border: none;
+  background: #7cac87;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  color: #232323;
+  cursor: pointer;
+}
+
+.main_link {
+  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 500px;
+  height: 52px;
+  border: none;
+  background: #7cac87;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 24px;
+  text-decoration: none;
+  color: #232323;
+  cursor: pointer;
+}
+
+.main_link.report {
+  margin-top: 30px;
+}
+
+.footer {
+  padding: 30px 0;
+  width: 100%;
+  background-color: #3f3f3f;
+}
+
+.footer_inner {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.left_link {
+  margin-right: 43px;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #c5c5c5;
+}
+
+.right_link {
+  margin-left: 33px;
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #c5c5c5;
+}
+
+.logo {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 30px;
+  color: #c5c5c5;
+}
+
+.diagnostik {
+  position: relative;
+}
+
+.diagnostik_img {
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.diagnostik_inner {
+  width: 100%;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.diagnostik_items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.diagnostik_items .diagnostik_title {
+  margin-bottom: 57px;
+  font-style: normal;
+  font-weight: 800;
+  font-size: 80px;
+  line-height: 98px;
+  color: #ffffff;
+}
+
+.diagnostik_items .diagnostik_subtitle {
+  margin-bottom: 90px;
+  width: 679px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.diagnostik_items .diagnostik_link {
+  padding: 19px 38px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  text-decoration: none;
+  -webkit-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+
+.diagnostik_items .diagnostik_link:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.diagnostik_secret {
+  margin: 8px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: #736e6e;
+  text-decoration: none;
+}
+
+.input_img {
+  width: 17px;
+}
+
+.process {
+  font-size: 13px;
+  height: 138px;
+  resize: none;
+}
+
+.ctrl {
+  font-size: 12px;
+}
+
+.bigest {
+  width: 100%;
+}
+
+.bigest_title {
+  margin-top: 20px;
+}
+
+.bottom_buttons {
+  margin-top: 23px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.bottom_buttons p {
+  font-weight: 500;
+  font-size: 13px;
+  max-width: 400px;
+  margin-left: 25px;
+}
+
+.result_block {
+  position: relative;
+  text-align: center;
+  background: #DCDCDC;
+  border: 1px solid #000000;
+}
+
+.result_block .export_block {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 38px;
+  height: 38px;
+  border-left: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+}
+
+.result_inner {
+  padding: 42px 200px;
+}
+
+.result_title {
+  margin-bottom: 40px;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 43px;
+  color: #000000;
+}
+
+.result_subtitle {
+  margin-bottom: 15px;
+}
+
+.result_subtitle.date {
+  margin-top: 40px;
+}
+
+.result_subtitle:last-child {
+  margin-bottom: 0;
+}
+
+.main_right_blockinform {
+  padding: 40px 26px;
+  width: 40%;
+  height: 446px;
+  background: #DCDCDC;
+}
+
+.main_right_block_title {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 37px;
+  color: #3F3F3F;
+}
+
+.main_right_block_title:after {
+  display: block;
+  content: '';
+  margin-top: 19px;
+  margin-bottom: 24px;
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+}
+
+.main_block_subtitle {
+  font-size: 20px;
+  line-height: 27px;
+  letter-spacing: 0.05em;
+  color: #000000;
+}
+/*# sourceMappingURL=style_diagnost.css.map */

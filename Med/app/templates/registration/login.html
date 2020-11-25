@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body class="authoriz">
+    {% if form.errors %}
+    <p>Что-то пошло не так!</p>
+    {% endif %} 
+    {% if next %}
+    <p>Вы не можете получить доступ к странице</p>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}" class="authoriz_container">
+        <p class="title">АВТОРИЗАЦИЯ</p>
+
+        <div class="input_items">
+            {% csrf_token %}
+            {% comment %} <p class='input_text'>{{ form.username }}</p>
+            <p class='input_text'>{{ form.password }}</p> {% endcomment %}
+            {% comment %} {{ form.username }}
+            {{ form.password }} {% endcomment %}
+
+            <input type="text" class="input_text" placeholder="Логин" name="username">
+            <input type="password" class="input_text" placeholder="Пароль" name="password" autocomplete="current-password" required="">
+        </div>
+        <!-- /.input_items -->
+        <div class="authoriz_buttons">
+            <a href="{% url 'register' %}" class="reg">РЕГИСТРАЦИЯ</a>
+            <input type="submit" class="enter" value="ВОЙТИ">
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+        <!-- /.authoriz_buttons -->
+    </form>
+    <!-- /.authoriz_container -->
+</body>
+
+</html>

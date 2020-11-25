@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пациент</title>
+</head>
+
+<body>
+    {% for el in data_patient %}
+    <h3>Фамилия</h3>
+    <h2 class="surname_parient">{{el.surname_patient}}</h2>
+    <h3>Имя</h3>
+    <h2 class="name_parient">{{el.name_patient}}</h2>
+    <h3>Отчество</h3>
+    <h2 class="middlename_patien">{{el.middlename_patient}}</h2>
+    <h3>День рождения</h3>
+    <h2 class="birthday_patien">{{el.birthday_patient}}</h2>
+    <h3>ПОЛ</h3>
+    <h2 class="gender_patient">{{el.gender_patient}}</h2>
+    <!-- <select name="gender_patient">
+        <option value="A">Женский</option>
+        <option value="B">Мужской</option>
+      </select> -->
+    <h3>Санитарное просвещение</h3>
+    <h2 class="enlightenment_patien">{{el.enlightenment_patien}}</h2>
+    <!-- <input type="checkbox" class="enlightenment_patien"> -->
+    <h3>Номер медицинской карты</h3>
+    <h2 class="number_of_medical_card">{{ el.number_of_medical_card }}</h2>
+    {% endfor %}
+</body>
+
+</html>

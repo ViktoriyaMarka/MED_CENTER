@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap" rel="stylesheet" />
+</head>
+
+<body class="registration">
+    <form method="POST" action="{% url 'register' %}" class="registration_container">
+        {% csrf_token %} 
+        <p class="title">РЕГИСТРАЦИЯ</p>
+        {% if form.errors %}
+        </br>
+            <p style="color:red">Возникли ошибки!</p>
+        {% endif %}
+
+        <div class="input_items">
+            <input type="text" class="input_text" placeholder="Фамилия" name="surname_doctor">
+            <input type="text" class="input_text" placeholder="Имя" name="name_doctor">
+            <input type="text" class="input_text" placeholder="Отчество" name="middlename_doctor">
+            {{ form.positions_doctor }}
+            <input type="text " class="input_text " placeholder="Логин" name="username">
+            <input type="password" class="input_text" placeholder="Пароль" name="password">
+        </div>
+        <!-- /.input_items -->
+        <div class="buttons_regisrtation ">
+            <input type="submit" class="button_regisrtation" value="ЗАРЕГИСТРИРОВАТЬСЯ">
+            <input type="hidden" name="next" value="{{ next }}">
+            <a href="{% url 'login' %} " class="back_regisrtation ">НАЗАД</a>
+        </div> 
+        <!-- /.reg_buttons -->
+    </form>
+    <!-- /.reg_container -->
+    <script>
+</script>
+</body>
+</html>

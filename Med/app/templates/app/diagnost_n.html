@@ -1,0 +1,99 @@
+{% extends 'app/BASE.html' %} 
+
+{% load static %} 
+
+{% block title %}Кабинет диагностики{% endblock %} 
+
+{% block content %}
+<section class="title">
+    <div class="all_container">
+        <div class="title_inner">
+            <h1 class="name">КАБИНЕТ ДИАГНОСТИКИ
+            </h1>
+            <h2 class="subname">Предоставление персональной информации</h2>
+        </div>
+        <!-- /.title_inner -->
+    </div>
+    <!-- /.title_container -->
+</section>
+<!-- /.title -->
+
+<section class="main">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="all_container">
+            <div class="main_inner">
+                <div class="input_items">
+                    <div class="input_item">
+                        <p class="input_title">Введите фамилию</p>
+                        <div class="input_elements">
+                            {{ form.surname_patient }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите имя</p>
+                        <div class="input_elements">
+                            {{ form.name_patient }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите отчество</p>
+                        <div class="input_elements">
+                            {{ form.middlename_patient }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Укажите дату рождения</p>
+                        <div class="input_elements">
+                            <input type="date" class="input_text" name="birthday_patient" />
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Укажите пол</p>
+                        <div class="input_elements">
+                            <select class="input_text" name="gender_patient">
+                                <option></option>
+                                <option>Мужской</option>
+                                <option>Женский</option>
+                            </select>
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Укажите уровень санитарного просвещения</p>
+                        <div class="input_elements">
+                            <select class="input_text" name="enlightenment_patient">
+                                <option></option>
+                                <option>Не просвещён</option>
+                                <option>Достаточно просвещён</option>
+                                <option>Просвещён</option>
+                            </select>
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите номер медицинской карты</p>
+                        <div class="input_elements">
+                            {{ form.number_of_medical_card }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                </div>
+                <!-- /.input_items -->
+        </div>
+        <!-- /.all_container -->
+    </form>
+</section>
+<!-- /.main -->
+{% endblock %}

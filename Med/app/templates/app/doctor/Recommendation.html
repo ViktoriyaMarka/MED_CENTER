@@ -1,0 +1,109 @@
+{% extends 'app/doctor/base_nav.html' %} 
+
+{% load static %} 
+
+{% block title %}Рекомендации{% endblock title %} 
+
+{% block content %}
+
+<section class="main">
+    <div class="container">
+        <div class="header">
+            <div class="header_conatiner">
+                <h1 class="header_title">РЕКОМЕНДАЦИИ</h1>
+            </div>
+            <!-- /.header_conatiner -->
+        </div>
+        <!-- /.header -->
+        <form action="{{ data.recommendation }}" method="POST" name='form_name'>
+            <section class="section">
+                {% csrf_token %}
+                <div class="left_block">
+                    <span>{{error}}</span>
+                    <div class="left_items">
+                        <p class="input_title">Дата назначения*</p>
+                        <input class="input_text" type="date" name="date_recommendation">
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Период действия*</p>
+                        <input class="input_text" type="date" name="period_recommendation">
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Пациент и врач*</p>
+                        {{ form.fk_distribution }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Описание рекомендации</p>
+                        {{ form.description_recommendation }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="buttons">
+                            <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
+                            <a href="{% url 'recommendation' %}" class="link">
+                                <div class="left_button cancel">ОТМЕНА</div>
+                            </a>
+                    </div>
+                    <!-- /.buttons -->
+                </div>
+                <!-- /.left_block -->
+                <div class="right_block">
+                    {% if elements %}
+                    <table class="table" border="0" cellspacing="0">
+                        <tr class="header_table">
+                            <th width="70px" colspan="2">Действия</th>
+                            <th width="30px">№</th>
+                            <th width="13%">Дата назначения</th>
+                            <th width="13%">Период</th>
+                            <th>Распределение</th>
+                            <th width="20%">Описание</th>
+                        </tr>
+                        {% for el in elements %}
+                        <tr class="header_table">
+                            <td>
+                                <a href="{% url 'recommendation_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a href="{% url 'recommendation_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
+                            </td>
+                            <td class="color"  id="number">{{ el.id }}</td>
+                            <td >{{ el.date_recommendation }}</td>
+                            <td class="color" >{{ el.period_recommendation }}</td>
+                            <td>{{ el.fk_distribution }}</td>
+                            <td class="color">{{ el.description_recommendation }}</td>
+                        </tr>
+                        {% endfor %} 
+                        
+                        {% else %}
+                        <tr class="header_table">
+                            <td width=90%>
+                                <p style="margin:20px 20px 20px 20px" class="input_title">Нет записей</p>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+                <!-- right_block -->
+            </section>
+            <!-- /.section -->
+        </form>
+
+        <form action="{% url 'recommendation' %}" method="GET">
+            {% csrf_token %}
+            <div class="bottom_panel">
+                <a href="#" class="back">НАЗАД</a>
+                <div class="search_panel">
+                    <input type="text" class="search" name="search" />
+                    <button type="submit" class="bottom_button">ПОИСК</button>
+                </div>
+                <!-- /.search_panel -->
+            </div>
+            <!-- /.bottom_panel -->
+        </form>
+    </div>
+    <!-- /.container -->
+</section>
+<!-- /.main -->
+{% endblock content %}

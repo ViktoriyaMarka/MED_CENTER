@@ -1,0 +1,96 @@
+{% extends 'app/doctor/base_nav.html' %} 
+
+{% load static %} 
+
+{% block title %}Распределения{% endblock title %} 
+
+{% block content %}
+
+<section class="main">
+    <div class="container">
+        <div class="header">
+            <div class="header_conatiner">
+                <h1 class="header_title">РАСПРЕДЕЛЕНИЯ</h1>
+            </div>
+            <!-- /.header_conatiner -->
+        </div>
+        <!-- /.header -->
+        <form action="{{ data.distribution }}" method="POST" class="section" name='form_name'>
+            {% csrf_token %}
+            <div class="left_block">
+            <div class="left_items">
+                    <p class="input_title">Описание распределения*</p>
+                    {{ form.name_distribution }}
+                </div>
+                <!-- /.left_items -->
+                <div class="left_items">
+                    <p class="input_title">Выберите врача*</p>
+                    {{ form.fk_doctor }}
+                </div>
+                <!-- /.left_items -->
+                <div class="left_items">
+                    <p class="input_title">Выберите пациента*</p>
+                    {{ form.fk_patient }}
+                </div>
+                <!-- /.left_items -->
+                <div class="buttons">
+                        <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
+                        <a href="{% url 'distribution' %}" class="link">
+                            <div class="left_button cancel">ОТМЕНА</div>
+                        </a>
+                </div>
+                <!-- /.buttons -->
+            </div>
+            <!-- /.left_block -->
+            <div class="right_block">
+            {% if elements %}
+                <table class="table distribution" border="0" cellspacing="0">
+                    <tr class="header_table">
+                        <th width="30px" colspan="2">Действия</th>
+                        <th width="30px">№</th>
+                        <th>Пациент</th>
+                        <th>Врач</th>
+                        <th width="30px">Описание</th>
+                    </tr>
+                        {% for el in elements %}
+                        <tr class="header_table">
+                            <td>
+                                <a href="{% url 'distribution_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a href="{% url 'distribution_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
+                            </td>
+                            <td class="color">{{ el.id }}</td>
+                            <td>{{ el.fk_patient }}</td>
+                            <td class="color" width="30%">{{ el.fk_doctor }}</td>
+                            <td width="30%">{{ el.name_distribution }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <tr class="header_table">
+                    <td width=90%><p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p></td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            <!-- right_block -->
+        </form>
+        <!-- /.section -->
+
+        <form action="{% url 'distribution' %}" method="GET">
+            {% csrf_token %}
+            <div class="bottom_panel">
+                <div class="search_panel">
+                    <input type="text" class="search" name="search" />
+                    <button type="submit" class="bottom_button">ПОИСК</button>
+                </div>
+                <!-- /.search_panel -->
+                <a href="#" class="back">НАЗАД</a>
+            </div>
+            <!-- /.bottom_panel -->
+        </form>
+    </div>
+    <!-- /.container -->
+</section>
+<!-- /.main -->
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'app/css/style_diagnost.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header_inner">
+                <h1 class="header_logo">DIAGNOSTIK</h1>
+                <nav class="nav">
+                    <a href="{% url 'index'%}" class="nav_link">Главная</a>
+                    <a href="{% url 'personal_data'%}" class="nav_link">Кабинет диагностики</a>
+                    <a href="{% url 'profile' %}" class="nav_link">
+                    {% if request.user.is_authenticated %}
+                        <div class="user"><i class="fas fa-user"></i></div>
+                    {% endif %} 
+                        <!-- <img src="{% static 'main_app/img/user.svg'%}" alt="user" class="nav_img" /> -->
+                    </a>
+                </nav>
+                <!-- /.navigation -->
+            </div>
+            <!-- /.header_inner -->
+        </div>
+        <!-- /.conatiner -->
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="all_container">
+            <div class="footer_inner">
+                <div class="left_links">
+                    <a href="#" class="left_link">+ 7 (999)-999-99-99</a>
+                    <a href="#" class="left_link">email@mail.com</a>
+                </div>
+                <!-- /.left_links -->
+                <p class="logo">DIAGNOSTIK</p>
+                <div class="right_links">
+                    <a href="{% url 'report'%}" class="right_link">Сообщить об ошибке</a>
+                    <a href="{% url 'personal_data'%}" class="right_link">Кабинет диагностки</a>
+                </div>
+                <!-- /.right_links -->
+            </div>
+            <!-- /.footer_ini -->
+        </div>
+        <!-- /.all_container -->
+    </footer>
+</body>
+
+</html>

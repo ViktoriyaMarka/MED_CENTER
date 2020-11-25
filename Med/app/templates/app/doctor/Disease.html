@@ -1,0 +1,130 @@
+{% extends 'app/doctor/base_nav.html' %} 
+
+{% load static %} 
+
+{% block title %}Заболевания{% endblock title %} 
+
+{% block content %}
+
+<section class="main">
+    <div class="container">
+        <div class="header">
+            <div class="header_conatiner">
+                <h1 class="header_title">ЗАБОЛЕВАНИЯ</h1>
+            </div>
+            <!-- /.header_conatiner -->
+        </div>
+        <!-- /.header -->
+        <form action="{{ data.disease }}" method="POST" name='form_name'>
+            <section class="section">
+                {% csrf_token %}
+                <div class="left_block">
+                    <span>{{error}}</span>
+                    <div class="left_items">
+                        <p class="input_title">Наименование заболевания*</p>
+                        {{ form.name_disease }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Описание заболевания*</p>
+                        {{ form.description_disease }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title symptoms">Симптомы*&nbsp;&nbsp;
+                            <a href="{% url 'symptom' %}"><i style="color: green" class="fas fa-plus"></i></a>
+                        </p>
+                        {{ form.symptoms }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items status">
+                        <!-- <p class="input_title">Статус ген. предрасположенности*</p> -->
+                        <!-- {{ form.status_genetic_predisposition }} -->
+                        <input id="status" type="checkbox" name="status_genetic_predisposition" onchange='add_form("dv1", "status");'>
+                        <label for="status" class="input_title">&nbsp;&nbsp;Статус ген. предрасположенности</label>
+                    </div>
+                    <!-- /.left_items -->
+                    <div id="dv1" class="left_items">
+                        <p class="input_title">Описание ген. предрасположенности</p>
+                        <textarea class="input_text disease" name="description_genetic_predisposition" cols="30" rows="10"></textarea>
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="buttons">
+                            <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
+                            <a href="{% url 'disease' %}" class="link">
+                                <div class="left_button cancel">ОТМЕНА</div>
+                            </a>
+                    </div>
+                    <!-- /.buttons -->
+                </div>
+                <!-- /.left_block -->
+                <div class="right_block">
+                    {% if elements %}
+                    <table class="table" border="0" cellspacing="0">
+                        <tr class="header_table">
+                            <th width="70px" colspan="2">Действия</th>
+                            <th width="30px">№</th>
+                            <th width="20%">Заболевание</th>
+                            <th width="25%">Описание</th>
+                            <th>Симптомы</th>
+                            <th>Статус</th>
+                            <th class="two">Описание ген. предрасположенности</th>
+                        </tr>
+                        {% for el in elements %}
+                        <tr class="header_table">
+                            <td>
+                                <a href="{% url 'disease_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
+                            </td>
+                            <td>
+                                <a href="{% url 'disease_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
+                            </td>
+                            <td class="color" id="number">{{ el.id }}</td>
+                            <td>{{ el.name_disease }}</td>
+                            <td class="color">
+                                <p class="width_line">{{ el.description_disease }}</p>
+                            </td>
+                            <td style = "padding:5px">
+                            {% for s in el.symptoms.all %}
+                                <p class="stroke">{{ s.name_symptom }}</p>
+                            {% endfor %}
+                            </td>
+                            <td class="color">
+                                {% if el.status_genetic_predisposition %}
+                                <div><i style="color:green" class="fas fa-check"></i></div>
+                                {% else %}
+                                <div><i style="color:red" class="fas fa-times"></i></div>
+                                {% endif %}
+                            </td>
+                            <td class="two">{{ el.description_genetic_predisposition }}</td>
+                        </tr>
+                        {% endfor %} 
+                        {% else %}
+                        <tr class="header_table">
+                            <td width=90%>
+                                <p style="margin:20px 20px 20px 20px" class="input_title">Нет записей</p>
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </table>
+                </div>
+                <!-- right_block -->
+            </section>
+            <!-- /.section -->
+        </form>
+        <form action="{% url 'disease' %}" method="GET">
+            {% csrf_token %}
+            <div class="bottom_panel">
+                <a href="#" class="back">НАЗАД</a>
+                <div class="search_panel">
+                    <input type="text" class="search" name="search" />
+                    <button type="submit" class="bottom_button">ПОИСК</button>
+                </div>
+                <!-- /.search_panel -->
+            </div>
+            <!-- /.bottom_panel -->
+        </form>
+    </div>
+    <!-- /.container -->
+</section>
+<!-- /.main -->
+{% endblock content %}

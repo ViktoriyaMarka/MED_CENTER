@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'app/css/style.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+    <section class="panel">
+        <p class="user">{{request.user}}</p>
+        <p class="panel_title">МЕНЮ</p>
+        <a class="profile" href="{% url 'index' %}">Главная страница</a>
+        <a class="profile two" href="{% url 'profile' %}">Личный кабинет</a>
+        <a class="profile two" href="{% url 'report' %}">Сообщить об ошибке</a>
+        <ul class="directory">
+            <p class="panel_title_two">СПРАВОЧНИКИ</p>
+            <li class="li"><a class="link" href="{% url 'disease' %}">Заболевания</a></li>
+            <li class="li"><a class="link" href="{% url 'symptom' %}">Симптомы</a></li>
+            <li class="li"><a class="link" href="{% url 'medicalRecord' %}">Медицинские карты</a></li>
+            {% comment %} <li class="li"><a class="link" href="{% url 'distribution' %}">Распределения пациентов</a></li> {% endcomment %}
+            <li class="li"><a class="link" href="{% url 'recommendation' %}">Рекомендации</a></li>
+        </ul>
+        <!-- directory -->
+        <input type="button" class="exit" value="Выйти из аккаунта">
+    </section>
+
+    {% block content %} 
+    {% endblock %}
+
+    <script src="{% static 'app/js/function.js' %}"></script>
+</body>
+
+</html>
