@@ -314,9 +314,23 @@ def personal_data(request):
     context = {'elements': elements, 'form': form}
     return render(request, 'app/diagnost_patient.html', context)
 
-def result_patient(request):
-    return render(request, 'app/result_patient.html')
+def patient(request):
+    error = ''
+    elements = Patient.objects.all()
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            error = 'Возникла ошибка'
+    form = PatientForm()
+    context = {'elements': elements, 'form': form}
+    return render(request, 'app/Patient.html', context)
 
+class result_patient(DeleteView):
+    model = Patient
+    form_class = PatientForm
+    template_name = 'app/result_patient.html'
 
 # class processView(View):
 
@@ -336,9 +350,9 @@ def result_patient(request):
 #         form = PatientProcessForm()
 #         return render(request, 'app/diagnost_process.html', context = {'form': form})
 
-def patient(request):
-    data_patient = Patient.objects.order_by()[:1] #вывод только первого пациента
-    return render(request, 'app/patient.html', {'data_patient': data_patient}) 
+# def patient(request):
+#     data_patient = Patient.objects.order_by()[:1] #вывод только первого пациента
+#     return render(request, 'app/patient.html', {'data_patient': data_patient}) 
 
 
 

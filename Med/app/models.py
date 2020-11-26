@@ -43,8 +43,8 @@ class Patient(models.Model):
     def __str__(self):
         return self.surname_patient + ' ' + self.name_patient + ' ' + self.middlename_patient
 
-    # def get_absolute_url(self):
-    #     return reverse("process", kwargs={"pk": self.pk})
+    def get_absolute_url(self):
+        return reverse("result_patient", kwargs={"pk": self.pk})
 
 # Симптом
 class Symptom(models.Model):

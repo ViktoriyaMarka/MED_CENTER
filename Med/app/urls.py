@@ -36,8 +36,7 @@ urlpatterns = [
 # Пациент -------------------------------------------------------------------------------
     # path('personal_data', views.personal_data, name='personal_data'),
     path('personal_data', views.personal_data, name='personal_data'),
-    path('result_patient', views.result_patient, name='result_patient'),
+    path('patient', views.patient, name='patient'),
+    path('result_patient/<int:pk>/detail', views.result_patient.as_view(), name='result_patient'),
     # path('process/<int:pk>', views.processView.as_view(), name='process'),
-
-    path('patient', views.patient, name='patient')
 ]

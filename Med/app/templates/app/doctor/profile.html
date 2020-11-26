@@ -13,6 +13,9 @@
                 <div class="card">
                     <p class="card_fio">{{request.user}}</p>
                     <p class="card_position">{{request.user.positions_doctor.positions_name }}</p>
+                    {% for diseases in info.diseases.all %}
+                            <p class="card_position">Заболевания отсутствуют</p>
+                    {% endfor %}
                 </div>
                 <div class="statistic">
                     {% if elements %}

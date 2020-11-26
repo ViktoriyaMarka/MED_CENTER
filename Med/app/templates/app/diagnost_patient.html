@@ -119,14 +119,16 @@
                             </p>
                             <div class="input_elements">
                                 {{ form.relatives_diseases }}
-                            {% comment %} <select name="relatives_diseases" id="id_select"  class="input_text process" multiple="multiple"> {% endcomment %}
-                            {% comment %} {% for el in elements %} {% endcomment %}
-                                {% comment %} {% for s in el.relatives_diseases.all %} {% endcomment %}
-                                    {% comment %} {% if s.status_genetic_predisposition %} {% endcomment %}
-                                        {% comment %} <option value="{{el.id}}">{{ el.name_disease }}</option> {% endcomment %}
-                                    {% comment %} {% endif %} {% endcomment %}
-                                {% comment %} {% endfor %} {% endcomment %}
-                            {% comment %} {% endfor %} {% endcomment %}
+                            {% comment %} <select name="childhood_diseases" id="id_select"  class="input_text process" multiple="multiple">                       {% endcomment %}
+                            {% comment %} {% for f in fil %}
+                                {% for el in f %} {% endcomment %}
+                                    {% comment %} {% for s in el.childhood_diseases.all %} {% endcomment %}
+                                        {% comment %} {% if s.status_genetic_predisposition %} {% endcomment %}
+                                            {% comment %} <option value="{{el.id}}">{{ el.childhood_diseases }}</option> {% endcomment %}
+                                        {% comment %} {% endif %} {% endcomment %}
+                                    {% comment %} {% endfor %} {% endcomment %}
+                                {% comment %} {% endfor %}
+                            {% endfor %} {% endcomment %}
                             {% comment %} </select> {% endcomment %}
                             </div>
                             <!-- /.input_elements -->
@@ -151,7 +153,7 @@
             <!-- /.input_item -->
             <div class="bottom_buttons">
             <button class="main_link">ПРОЙТИ ДИАГНОСТИКУ</button>
-                {% comment %} <a class="main_link" href="{{ elements.get_absolute_url }}">ПРОЙТИ ДИАГНОСТИКУ</a> {% endcomment %}
+                {% comment %} <a class="main_link" href="{{ elements.get_update_url }}" role="button">ПРОЙТИ ДИАГНОСТИКУ</a> {% endcomment %}
                 <p>Нажимая на кнопку вы соглашаетесь на обработку персональных данных</p>
             </div>
             <!-- /.bottom_buttons -->
