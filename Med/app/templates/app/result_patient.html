@@ -22,28 +22,20 @@
                 <!-- /.export_block -->
                 <div class="result_inner">
                     <p class="result_title">РЕКОМЕНДАЦИЯ</p>
-                    <div class="result_subtitles">
-                        <p class="result_subtitle">ФИО пациента: {{ patient.surname_patient}} {{ patient.name_patient}} {{ patient.middlename_patient}}</p>
-                        <p class="result_subtitle">День рождение пациента: {{ patient.birthday_patient}}</p>
-                        <p class="result_subtitle">Номер медицинской карты: {{ patient.number_of_medical_card}}</p>
-                        <p class="result_subtitle">Уровени санитарного просвещения: {{ patient.enlightenment_patient}}</p>
-                        <p class="result_subtitle">Симптомы: 
-                            {% for s in patient.symptoms_patient.all %}
-                                {{ s.name_symptom}}
-                            {% endfor %}</p>
-                        <p class="result_subtitle">Болезни детства: 
-                            {% for s in patient.childhood_diseases.all %}
-                                {{ s.name_disease}}
-                            {% endfor %}</p>
-                        <p class="result_subtitle">Болезни у родственников: 
-                        {% for s in patient.relatives_diseases.all %}
-                                {{ s.name_disease}}
-                            {% endfor %}</p>
-                        <p class="result_subtitle">Хронические заболевания: {{patient.chronic_disease}}</p>
-                        <p class="result_subtitle">Направление ко врачу:</p>
-                        <p class="result_subtitle date">Дата выдачи:</p>
-                    </div>
-                    <!-- /.result_subtitles -->
+                        <div class="result_subtitles">
+                            <p class="result_subtitle">ФИО: {{ patient.surname_patient}} {{ patient.name_patient}} {{ patient.middlename_patient}}</p>
+                            <p class="result_subtitle">Дата рождения: {{ patient.birthday_patient}}</p>
+                            <p class="result_subtitle">Номер медицинской карты: {{ patient.number_of_medical_card}}</p>
+                            <p class="result_subtitle">Уровень санитарного просвещения: {{ patient.enlightenment_patient}}</p>
+                            <p class="result_subtitle">Симптомы: {% for s in patient.symptoms_patient.all %} {{ s.name_symptom}} {% endfor %}</p>
+                            <p class="result_subtitle">Болезни детства: {% for s in patient.childhood_diseases.all %} {{ s.name_disease}} {% endfor %}</p>
+                            <p class="result_subtitle">Болезни у родственников: {% for s in patient.relatives_diseases.all %} {{ s.name_disease}} {% endfor %}</p>
+                            <p class="result_subtitle">Хронические заболевания: {{patient.chronic_disease}}</p>
+                            <p class="result_subtitle">Направлен ко врачу: {{patient.fk_account}}</p>
+                            <p class="result_subtitle date">Дата выдачи: {{patient.date_recommendation}}</p>
+                            <p class="result_subtitle">Действителен до: {{patient.period_recommendation}}</p>
+                        </div>
+                        <!-- /.result_subtitles -->
                 </div>
                 <!-- /.result_inner -->
             </div>

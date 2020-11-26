@@ -29,8 +29,23 @@
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
+                        <p class="input_title">Пол*</p>
+                        {{ form.gender_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Санитарное просвещение*</p>
+                        {{ form.enlightenment_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
                         <p class="input_title">Номер медицинской карты*</p>
                         {{ form.number_of_medical_card }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Дата рождения*</p>
+                        <input class="input_text" type="date" name="birthday_patient">
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
@@ -72,6 +87,8 @@
                         <th>№</th>
                         <th>ФИО пациента</th>
                         <th>№ Мед. карты</th>
+                        <th>Пол</th>
+                        <th>Санитарное просвещение</th>
                         <th width="30px">Симтомы</th>
                         <th>Белезни детства</th>
                         <th>Болезни родственников</th>
@@ -81,12 +98,13 @@
                     <tr class="header_table">
                         <td class="header_links">
                             <a class="header_link" href="{% url 'patient_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
-                            <a class="header_link" href="{% url 'patient_detail' el.pk  %}"><i class="fas fa-info"></i></a>
                             <a class="header_link" href="{% url 'patient_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
                         </td>
                         <td class="color" width="2%">{{ el.id }}</td>
                         <td width="15%">{{ el.surname_patient }} {{el.name_patient}} {{el.middlename_patient}}</td>
                         <td class="color" width="15%">{{ el.number_of_medical_card }}</td>
+                        <td class="color" width="15%">{{ el.gender_patient }}</td>
+                        <td class="color" width="15%">{{ el.enlightenment_patient }}</td>
                         <td width="15%">
                             <div class="elements_container">
                                 {% for s in el.symptoms_patient.all %}

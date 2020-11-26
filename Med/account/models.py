@@ -53,7 +53,6 @@ class Account(AbstractBaseUser):
     date_joined         = models.DateTimeField(max_length=50, verbose_name='Дата регистраци', null=True, auto_now_add=True)
     last_login          = models.DateTimeField(max_length=50, verbose_name='Дата последнего входа', null=True, auto_now=True)
     positions_doctor    = models.ForeignKey(Positions, on_delete = models.DO_NOTHING, verbose_name = 'Должность', null=True)
-    patients            = models.ManyToManyField(to='app.Patient', verbose_name="Пациенты", blank='True')
     diseases            = models.ManyToManyField(to='app.Disease', verbose_name="Заболевания", blank='True')
     is_staff            = models.BooleanField(verbose_name='Доктор-администратор',default = False)
     is_admin            = models.BooleanField(default = False)

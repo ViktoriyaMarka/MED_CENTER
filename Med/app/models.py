@@ -13,11 +13,15 @@ class Patient(models.Model):
     birthday_patient            = models.DateField(max_length=50, verbose_name='День рождение пациента')
     gender_patient              = models.CharField(max_length=50, verbose_name='Пол пациента')
     enlightenment_patient       = models.CharField(max_length=50, verbose_name='Санитарное просвящение пациента')
-    number_of_medical_card      = models.CharField(max_length=50, verbose_name='Номер медицинской карты', null=False)
+    number_of_medical_card      = models.CharField(max_length=50, verbose_name='Номер медицинской карты')
     symptoms_patient            = models.ManyToManyField('Symptom', verbose_name="Симптомы", related_name = 'symptoms_patient' , blank=True)
     childhood_diseases          = models.ManyToManyField('Disease', verbose_name="Болезни детства", related_name = 'childhood_diseases', blank=True)
     relatives_diseases          = models.ManyToManyField('Disease', verbose_name="Болезни у родственников", related_name = 'relatives_diseases', blank=True)
     chronic_disease             = models.CharField(max_length=250, verbose_name='Хронические заболевания', null=True)
+    description_recommendation  = models.CharField(max_length=200, verbose_name='Описание рекомендации',default="-", null=True, blank=True)
+    date_recommendation         = models.DateField(max_length=50, verbose_name='Дата выдачи рекомендации', null=True, blank=True)
+    period_recommendation       = models.DateField( verbose_name='Период времени', null=True, blank=True)
+    fk_account                  = models.ForeignKey(Account, on_delete = models.DO_NOTHING, verbose_name = 'Врач', null=True)
 
     class Meta:
         verbose_name            = "Пациент"
@@ -28,9 +32,6 @@ class Patient(models.Model):
         return self.surname_patient + ' ' + self.name_patient + ' ' + self.middlename_patient
     
     def get_absolute_url(self):
-        return '/patient'
-
-    def get_detail_url(self):
         return '/patient'
 
 # Симптом
@@ -81,26 +82,5 @@ class MedicalRecord(models.Model):
 
     def get_absolute_url(self):
         return '/medicalRecord'
-
-
-
-# Рекомендация
-class Recommendation(models.Model):
-    description_recommendation      = models.CharField(max_length=200, verbose_name='Описание рекомендации')
-    date_recommendation             = models.DateField(max_length=50, verbose_name='Дата выдачи рекомендации')
-    period_recommendation           = models.DateField( verbose_name='Период времени')
-    fk_distribution                 = models.ForeignKey(Account, on_delete = models.DO_NOTHING, verbose_name = 'Врач', null=False)
-
-    class Meta:
-        verbose_name            = "Рекомендация"
-        verbose_name_plural     = "Рекомендации"
-
-    def __str__(self):
-        # return self.fk_distribution.fk_patient.name_patient + ' ' + self.fk_distribution.fk_patient.surname_patient + ' ' + self.fk_distribution.fk_patient.middlename_patient + ' : ' + self.fk_distribution.fk_doctor.name_doctor + ' ' + self.fk_distribution.fk_doctor.surname_doctor + ' ' + self.fk_distribution.fk_doctor.middlename_doctor
-        return self.description_recommendation
-    
-    def get_absolute_url(self):
-        return '/recommendation'
-
 
 

@@ -197,19 +197,19 @@ class medicalRecordDeleteView(DeleteView):
 # Рекомендации -------------------------------------------------------
 def recommendation(request):
     error = ''
-    search_query = request.GET.get('search','')
-    if search_query:
-        elements = Recommendation.objects.filter(Q(description_recommendation__icontains=search_query) |
-        Q(fk_distribution__patients__surname_patient__icontains=search_query) |
-        Q(fk_distribution__patients__name_patient__icontains=search_query) |
-        Q(fk_distribution__patients__middlename_patient_icontains=search_query) | 
-        Q(fk_distribution__surname_doctor__icontains=search_query) |
-        Q(fk_distribution__name_doctor__icontains=search_query) |
-        Q(fk_distribution__middlename_doctor__icontains=search_query) |
-        Q(date_recommendation__icontains=search_query) |
-        Q(period_recommendation__icontains=search_query))
-    else:
-        elements = Recommendation.objects.all()
+    # search_query = request.GET.get('search','')
+    # if search_query:
+    #     elements = Recommendation.objects.filter(Q(description_recommendation__icontains=search_query) |
+    #     Q(fk_distribution__patients__surname_patient__icontains=search_query) |
+    #     Q(fk_distribution__patients__name_patient__icontains=search_query) |
+    #     Q(fk_distribution__patients__middlename_patient_icontains=search_query) | 
+    #     Q(fk_distribution__surname_doctor__icontains=search_query) |
+    #     Q(fk_distribution__name_doctor__icontains=search_query) |
+    #     Q(fk_distribution__middlename_doctor__icontains=search_query) |
+    #     Q(date_recommendation__icontains=search_query) |
+    #     Q(period_recommendation__icontains=search_query))
+    # else:
+    elements = Patient.objects.all()
     if request.method == 'POST':
         form = RecommendationForm(request.POST)
         if form.is_valid():
@@ -223,13 +223,13 @@ def recommendation(request):
 class recommendationUpdateView(View):
 
     def get(self, request, id):
-        recommendation = Recommendation.objects.get(pk=id)
-        elements = Recommendation.objects.all()
+        recommendation = Patient.objects.get(pk=id)
+        elements = Patient.objects.all()
         form = RecommendationForm(instance = recommendation)
         return render(request, 'app/doctor/Recommendation.html', context = {'form': form, 'data':recommendation, 'elements': elements})
 
     def post(self, request, id):
-        recommendation = Recommendation.objects.get(pk=id)
+        recommendation = Patient.objects.get(pk=id)
         form = RecommendationForm(request.POST, instance = recommendation)
         if form.is_valid():
             form.save()
@@ -239,9 +239,33 @@ class recommendationUpdateView(View):
 
 # Удаление
 class recommendationDeleteView(DeleteView):
-    model = Recommendation
+    model = Patient
     success_url = '/recommendation'
     template_name = 'app/doctor/DELETE.html'
+
+# class patientRecomendationCreateView(View):
+
+#     def get(self, request, id):
+#         patient = Patient.objects.get(pk=id)
+#         elements = Patient.objects.all()
+#         form = RecommendationForm()
+#         form2 = PatientForm(instance = patient)
+#         return render(request, 'app/doctor/Recommendation.html', context = {'form': form,'form2': form2, 'data':patient, 'elements': elements})
+
+#     def post(self, request, id):
+#         patient = Patient.objects.get(pk=id)
+#         if request.method == 'POST':
+#             form = RecommendationForm(request.POST)
+#             form2 = PatientForm(request.POST)
+#             if form.is_valid():
+#                 form.save()
+#                 form2.save()
+#         else:
+#             error = 'Возникла ошибка'
+#         form = RecommendationForm()
+#         form2 = PatientForm()
+#         return render(request, 'app/doctor/Recommendation.html', context = {'form': form,'form2': form2, 'data': patient})
+
 
 
 def patient(request):
@@ -278,7 +302,7 @@ class patientUpdateView(View):
 class patientDetailView(DetailView):
     model = Patient
     form_class = PatientForm
-    template_name = 'app/result_patient.html'
+    template_name = 'app/result_patient.html' 
     context_object_name = 'patient'
 
 # Удаление

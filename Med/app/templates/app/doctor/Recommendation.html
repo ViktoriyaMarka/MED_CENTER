@@ -1,10 +1,4 @@
-{% extends 'app/doctor/base_nav.html' %} 
-
-{% load static %} 
-
-{% block title %}Рекомендации{% endblock title %} 
-
-{% block content %}
+{% extends 'app/doctor/base_nav.html' %} {% load static %} {% block title %}Рекомендации{% endblock title %} {% block content %}
 
 <section class="main">
     <div class="container">
@@ -15,82 +9,171 @@
             <!-- /.header_conatiner -->
         </div>
         <!-- /.header -->
-        <form action="{{ data.recommendation }}" method="POST" name='form_name'>
-            <section class="section">
-                {% csrf_token %}
-                <div class="left_block">
-                    <span>{{error}}</span>
+        <form action="{{ data.patient }}" method="POST" class="section" name='form_name'>
+            {% csrf_token %}
+            <div class="left_block">
+                <div class="left_block_container">
                     <div class="left_items">
-                        <p class="input_title">Дата назначения*</p>
-                        <input class="input_text" type="date" name="date_recommendation">
+                        <p class="input_title">Фамилия*</p>
+                        {{ form.surname_patient }}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Период действия*</p>
+                        <p class="input_title">Имя*</p>
+                        {{ form.name_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Отчество*</p>
+                        {{ form.middlename_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Пол*</p>
+                        {{ form.gender_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Санитарное просвещение*</p>
+                        {{ form.enlightenment_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Дата нрождения*</p>
+                        <input class="input_text" type="date" name="birthday_patient">
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Врач*</p>
+                        {{ form.fk_account }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Описание*</p>
+                        {{ form.description_recommendation }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Дата назначения*</p>
+                        <input class="input_text" type="date" name="description_recommendation">
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Период*</p>
                         <input class="input_text" type="date" name="period_recommendation">
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Пациент и врач*</p>
-                        {{ form.fk_distribution }}
+                        <p class="input_title">Номер медицинской карты*</p>
+                        {{ form.number_of_medical_card }}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Описание рекомендации</p>
-                        {{ form.description_recommendation }}
+                        <p class="input_title">Симптомы*</p>
+                        {{ form.symptoms_patient }}
                     </div>
                     <!-- /.left_items -->
-                    <div class="buttons">
-                            <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
-                            <a href="{% url 'recommendation' %}" class="link">
-                                <div class="left_button cancel">ОТМЕНА</div>
-                            </a>
+                    <div class="left_items">
+                        <p class="input_title">Болезни детства*</p>
+                        {{ form.childhood_diseases }}
                     </div>
-                    <!-- /.buttons -->
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Болезни родителей*</p>
+                        {{ form.relatives_diseases }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Хронические заболевания*</p>
+                        {{ form.chronic_disease }}
+                    </div>
+                    <!-- /.left_items -->
                 </div>
-                <!-- /.left_block -->
-                <div class="right_block">
-                    {% if elements %}
-                    <table class="table" border="0" cellspacing="0">
-                        <tr class="header_table">
-                            <th width="70px" colspan="2">Действия</th>
-                            <th width="30px">№</th>
-                            <th width="13%">Дата назначения</th>
-                            <th width="13%">Период</th>
-                            <th>Распределение</th>
-                            <th width="20%">Описание</th>
-                        </tr>
-                        {% for el in elements %}
-                        <tr class="header_table">
-                            <td>
-                                <a href="{% url 'recommendation_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <a href="{% url 'recommendation_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
-                            </td>
-                            <td class="color"  id="number">{{ el.id }}</td>
-                            <td >{{ el.date_recommendation }}</td>
-                            <td class="color" >{{ el.period_recommendation }}</td>
-                            <td>{{ el.fk_distribution }}</td>
-                            <td class="color">{{ el.description_recommendation }}</td>
-                        </tr>
-                        {% endfor %} 
-                        
-                        {% else %}
-                        <tr class="header_table">
-                            <td width=90%>
-                                <p style="margin:20px 20px 20px 20px" class="input_title">Нет записей</p>
-                            </td>
-                        </tr>
-                        {% endif %}
-                    </table>
+                <!-- /.left_block_container -->
+                <div class="buttons">
+                    <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
+                    <a href="{% url 'patient' %}" class="link">
+                        <div class="left_button cancel">ОТМЕНА</div>
+                    </a>
                 </div>
-                <!-- right_block -->
-            </section>
-            <!-- /.section -->
+                <!-- /.buttons -->
+            </div>
+            <!-- /.left_block -->
+            <div class="right_block">
+                {% if elements %}
+                <table class="table patient" border="0" cellspacing="0">
+                    <tr class="header_table">
+                        <th width="5%">Действия</th>
+                        <th>№</th>
+                        <th>ФИО пациента</th>
+                        <th>Пол</th>
+                        <th>СП</th>
+                        <th>ФИО врача</th>
+                        <th>Описание рекомендации</th>
+                        <th>Дата выдачи</th>
+                        <th>Период</th>
+                        <th>№ Мед. карты</th>
+                        <th width="30px">Симтомы</th>
+                        <th>Белезни детства</th>
+                        <th>Болезни родственников</th>
+                        <th>Хронические заболевания</th>
+                    </tr>
+                    {% for el in elements %}
+                    <tr class="header_table">
+                        <td class="header_links">
+                            <a class="header_link" href="{% url 'recommendation_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
+                            <a class="header_link" href="{% url 'patient_detail' el.pk  %}"><i class="fas fa-plus-square"></i></a>
+                            <a class="header_link" href="{% url 'recommendation_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
+                        </td>
+                        <td class="color" width="2%">{{ el.id }}</td>
+                        <td width="15%">{{ el.surname_patient }} {{el.name_patient}} {{el.middlename_patient}}</td>
+                        <td >{{ el.gender_patient }}</td>
+                        <td >{{ el.enlightenment_patient }}</td>
+                        <td width="15%">{{ el.fk_account.surname_doctor }} {{el.fk_account.name_doctor}} {{el.fk_account.middlename_doctor}}</td>
+                        <td width="15%">{{ el.description_recommendation }}</td>
+                        <td width="15%">{{ el.date_recommendation }}</td>
+                        <td width="15%">{{ el.period_recommendation }}</td>
+                        <td class="color" width="15%">{{ el.number_of_medical_card }}</td>
+                        <td width="15%">
+                            <div class="elements_container">
+                                {% for s in el.symptoms_patient.all %}
+                                <p class="stroke">{{ s.name_symptom }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.elements_container -->
+                        </td>
+                        <td class="color" width="15%">
+                            <div class="elements_container">
+                                {% for s in el.childhood_diseases.all %}
+                                <p class="stroke">{{ s.name_disease }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.elements_container -->
+                        </td>
+                        <td width="15%">
+                            <div class="elements_container">
+                                {% for s in el.relatives_diseases.all %}
+                                <p class="stroke">{{ s.name_disease }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.elements_container -->
+                        </td>
+                        <td class="color" width="15%">{{ el.chronic_disease }}</td>
+                    </tr>
+                    {% endfor %} {% else %}
+                    <tr class="header_table">
+                        <td width=90%>
+                            <p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            <!-- right_block -->
         </form>
+        <!-- /.section -->
 
-        <form action="{% url 'recommendation' %}" method="GET">
+        <form action="{% url 'patient' %}" method="GET">
             {% csrf_token %}
             <div class="bottom_panel">
                 <a href="#" class="back">НАЗАД</a>

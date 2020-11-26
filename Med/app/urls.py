@@ -32,6 +32,8 @@ urlpatterns = [
     path('patient/<int:id>/update', views.patientUpdateView.as_view(), name='patient_update'),
     path('patient/<int:pk>/detail', views.patientDetailView.as_view(), name='patient_detail'),
     path('patient/<int:pk>/delete', views.patientDeleteView.as_view(), name='patient_delete'),
+    # path('patient/<int:id>/create', views.patientRecomendationCreateView.as_view(), name='recomendation_create'),
+
 
 # Пациент -------------------------------------------------------------------------------
 

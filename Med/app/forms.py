@@ -95,7 +95,7 @@ class MedicalRecordForm(ModelForm):
 
 class RecommendationForm(ModelForm):
     class Meta:
-        model = Recommendation
+        model = Patient
         fields = '__all__'
 
         widgets = {
@@ -103,20 +103,10 @@ class RecommendationForm(ModelForm):
             'class': 'input_text recommendation'
             }),
 
-            "fk_distribution": Select(attrs={
+            "fk_account": Select(attrs={
             'class': 'input_text',
-            })
-        }
+            }),
 
-# ПАЦИЕНТ -------------------------------------------------------
-
-
-class PatientForm(ModelForm):
-    class Meta:
-        model = Patient
-        fields ='__all__'
-
-        widgets = {
             "surname_patient": TextInput(attrs={
                 'class': 'input_text',
             }),
@@ -129,7 +119,19 @@ class PatientForm(ModelForm):
                 'class': 'input_text',
             }),
 
+            "birthday_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
             "number_of_medical_card": NumberInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "gender_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "enlightenment_patient": TextInput(attrs={
                 'class': 'input_text',
             }),
 
@@ -146,7 +148,62 @@ class PatientForm(ModelForm):
             }),
 
             "chronic_disease": Textarea(attrs={
-            'class': 'input_text patient',
+            'class': 'input_text patient'
+            })
+        }
+
+
+# ПАЦИЕНТ -------------------------------------------------------
+
+
+class PatientForm(ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['surname_patient', 'name_patient', 'middlename_patient', 'number_of_medical_card', 'symptoms_patient', 'childhood_diseases', 'relatives_diseases', 'chronic_disease','gender_patient','enlightenment_patient','birthday_patient']
+
+        widgets = {
+            "surname_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "name_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "middlename_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "birthday_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "number_of_medical_card": NumberInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "gender_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "enlightenment_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "symptoms_patient": SelectMultiple(attrs={
+                'class': 'input_text patient'
+            }),
+
+            "childhood_diseases": SelectMultiple(attrs={
+                'class': 'input_text patient'
+            }),
+
+            "relatives_diseases": SelectMultiple(attrs={
+                'class': 'input_text patient'
+            }),
+
+            "chronic_disease": Textarea(attrs={
+            'class': 'input_text patient'
             })
         }
 
