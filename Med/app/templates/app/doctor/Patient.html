@@ -1,10 +1,4 @@
-{% extends 'app/doctor/base_nav.html' %} 
-
-{% load static %} 
-
-{% block title %}Пациенты{% endblock title %} 
-
-{% block content %}
+{% extends 'app/doctor/base_nav.html' %} {% load static %} {% block title %}Пациенты{% endblock title %} {% block content %}
 
 <section class="main">
     <div class="container">
@@ -15,60 +9,117 @@
             <!-- /.header_conatiner -->
         </div>
         <!-- /.header -->
-        <form action="{{ data.distribution }}" method="POST" class="section" name='form_name'>
+        <form action="{{ data.patient }}" method="POST" class="section" name='form_name'>
             {% csrf_token %}
             <div class="left_block">
-            <div class="left_items">
-                    <p class="input_title">Описание распределения*</p>
-                    {{ form.name_distribution }}
+                <div class="left_block_container">
+                    <div class="left_items">
+                        <p class="input_title">Фамилия*</p>
+                        {{ form.surname_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Имя*</p>
+                        {{ form.name_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Отчество*</p>
+                        {{ form.middlename_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Номер медицинской карты*</p>
+                        {{ form.number_of_medical_card }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Симптомы*</p>
+                        {{ form.symptoms_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Болезни детства*</p>
+                        {{ form.childhood_diseases }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Болезни родителей*</p>
+                        {{ form.relatives_diseases }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Хронические заболевания*</p>
+                        {{ form.chronic_disease }}
+                    </div>
+                    <!-- /.left_items -->
                 </div>
-                <!-- /.left_items -->
-                <div class="left_items">
-                    <p class="input_title">Выберите врача*</p>
-                    {{ form.fk_doctor }}
-                </div>
-                <!-- /.left_items -->
-                <div class="left_items">
-                    <p class="input_title">Выберите пациента*</p>
-                    {{ form.fk_patient }}
-                </div>
-                <!-- /.left_items -->
+                <!-- /.left_block_container -->
                 <div class="buttons">
-                        <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
-                        <a href="{% url 'distribution' %}" class="link">
-                            <div class="left_button cancel">ОТМЕНА</div>
-                        </a>
+                    <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
+                    <a href="{% url 'patient' %}" class="link">
+                        <div class="left_button cancel">ОТМЕНА</div>
+                    </a>
                 </div>
                 <!-- /.buttons -->
             </div>
             <!-- /.left_block -->
             <div class="right_block">
-            {% if elements %}
-                <table class="table distribution" border="0" cellspacing="0">
+                {% if elements %}
+                <table class="table patient" border="0" cellspacing="0">
                     <tr class="header_table">
-                        <th width="30px" colspan="2">Действия</th>
-                        <th width="30px">№</th>
-                        <th>Пациент</th>
-                        <th>Врач</th>
-                        <th width="30px">Описание</th>
+                        <th width="5%">Действия</th>
+                        <th>№</th>
+                        <th>ФИО пациента</th>
+                        <th>№ Мед. карты</th>
+                        <th width="30px">Симтомы</th>
+                        <th>Белезни детства</th>
+                        <th>Болезни родственников</th>
+                        <th>Хронические заболевания</th>
                     </tr>
-                        {% for el in elements %}
-                        <tr class="header_table">
-                            <td>
-                                <a href="{% url 'distribution_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
-                            </td>
-                            <td>
-                                <a href="{% url 'distribution_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
-                            </td>
-                            <td class="color">{{ el.id }}</td>
-                            <td>{{ el.fk_patient }}</td>
-                            <td class="color" width="30%">{{ el.fk_doctor }}</td>
-                            <td width="30%">{{ el.name_distribution }}</td>
-                        </tr>
-                        {% endfor %}
+                    {% for el in elements %}
+                    <tr class="header_table">
+                        <td class="header_links">
+                            <a class="header_link" href="{% url 'patient_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
+                            <a class="header_link" href="{% url 'patient_detail' el.pk  %}"><i class="fas fa-info"></i></a>
+                            <a class="header_link" href="{% url 'patient_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
+                        </td>
+                        <td class="color" width="2%">{{ el.id }}</td>
+                        <td width="15%">{{ el.surname_patient }} {{el.name_patient}} {{el.middlename_patient}}</td>
+                        <td class="color" width="15%">{{ el.number_of_medical_card }}</td>
+                        <td width="15%">
+                            <div class="elements_container">
+                                {% for s in el.symptoms_patient.all %}
+                                <p class="stroke">{{ s.name_symptom }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.elements_container -->
+                        </td>
+                        <td class="color" width="15%">
+                            <div class="elements_container">
+                                {% for s in el.childhood_diseases.all %}
+                                <p class="stroke">{{ s.name_disease }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.elements_container -->
+                        </td>
+                        <td width="15%">
+                            <div class="elements_container">
+                                {% for s in el.relatives_diseases.all %}
+                                <p class="stroke">{{ s.name_disease }}</p>
+                                {% endfor %}
+                            </div>
+                            <!-- /.elements_container -->
+                        </td>
+                        <td class="color" width="15%">{{ el.chronic_disease }}</td>
+                    </tr>
+                    {% endfor %} 
+                    
                     {% else %}
                     <tr class="header_table">
-                    <td width=90%><p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p></td>
+                        <td width=90%>
+                            <p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p>
+                        </td>
                     </tr>
                     {% endif %}
                 </table>
@@ -77,15 +128,15 @@
         </form>
         <!-- /.section -->
 
-        <form action="{% url 'distribution' %}" method="GET">
+        <form action="{% url 'patient' %}" method="GET">
             {% csrf_token %}
             <div class="bottom_panel">
+                <a href="#" class="back">НАЗАД</a>
                 <div class="search_panel">
                     <input type="text" class="search" name="search" />
                     <button type="submit" class="bottom_button">ПОИСК</button>
                 </div>
                 <!-- /.search_panel -->
-                <a href="#" class="back">НАЗАД</a>
             </div>
             <!-- /.bottom_panel -->
         </form>

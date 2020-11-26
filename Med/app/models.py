@@ -5,22 +5,6 @@ from account.models import Account
 
 # Create your models here.
 
-
-# Распределение
-# class Distribution(models.Model):
-#     name_distribution   = models.CharField(max_length=50, verbose_name='Наименование распределения', default="")
-#     fk_patient          = models.ForeignKey(Patient, on_delete = models.DO_NOTHING, verbose_name = 'Пациент', null=True)
-#     fk_doctor           = models.ForeignKey(Account, on_delete = models.DO_NOTHING, verbose_name = 'Врач', null=True)
-    
-#     class Meta:
-#         verbose_name = "Пациент и Врач"
-#         verbose_name_plural = "Распределения пациентов"
-#     def __str__(self):
-#         return self.fk_patient.surname_patient + ' ' + self.fk_patient.name_patient + ' ' + self.fk_patient.middlename_patient + ' : ' + self.fk_doctor.surname_doctor + ' ' + self.fk_doctor.name_doctor + ' ' + self.fk_doctor.middlename_doctor
-
-#     def get_absolute_url(self):
-#         return '/distribution'
-
 # Пациент
 class Patient(models.Model):
     surname_patient             = models.CharField(max_length=50, verbose_name='Фамилия пациента')
@@ -42,9 +26,12 @@ class Patient(models.Model):
 # Указали какая именно будет выводиться информация если мы будем выводить просто объект
     def __str__(self):
         return self.surname_patient + ' ' + self.name_patient + ' ' + self.middlename_patient
-
+    
     def get_absolute_url(self):
-        return reverse("result_patient", kwargs={"pk": self.pk})
+        return '/patient'
+
+    def get_detail_url(self):
+        return '/patient'
 
 # Симптом
 class Symptom(models.Model):

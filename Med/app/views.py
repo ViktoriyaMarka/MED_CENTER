@@ -105,55 +105,6 @@ class diseaseDeleteView(DeleteView):
     success_url = '/disease'
     template_name = 'app/doctor/DELETE.html'
 
-
-
-
-# Распределение -------------------------------------------------------
-# def distribution(request):
-#     error = ''
-#     search_query = request.GET.get('search','')
-#     if search_query:
-#         elements = Distribution.objects.filter(Q(name_distribution__icontains=search_query) | 
-#         Q(fk_patient__icontains=search_query) | 
-#         Q(fk_doctor_predisposition__icontains=search_query))
-#     else:
-#         elements = Distribution.objects.all()
-#     if request.method == 'POST':
-#         form = DistributionForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#         else:
-#             error = 'Возникла ошибка'
-#     form = DistributionForm()
-#     context = {'elements': elements, 'form': form}
-#     return render(request, 'app/doctor/Distribution.html', context)
-
-# class distributionUpdateView(View):
-
-#     def get(self, request, id):
-#         distribution = Distribution.objects.get(pk=id)
-#         elements = Distribution.objects.all()
-#         distribution_form = DistributionForm(instance = distribution)
-#         return render(request, 'app/doctor/Distribution.html', context = {'form': distribution_form,'data': distribution, 'elements': elements} )
-
-#     def post(self, request, id):
-#         distribution = Distribution.objects.get(pk=id)
-#         distribution_form = DistributionForm(request.POST, instance = distribution)
-#         if distribution_form.is_valid():
-#             distribution_form.save()
-#             return redirect(distribution)
-#         distribution_form = DistributionForm()
-#         return render(request, 'app/doctor/Distribution.html', context = {'form': distribution_form, 'data': distribution} )
-
-# # Удаление
-# class distributionDeleteView(DeleteView):
-#     model = Distribution
-#     success_url = '/distribution'
-#     template_name = 'app/doctor/DELETE.html'
-
-
-
-
 # Симптом -------------------------------------------------------
 def symptom(request):
     error = ''
@@ -291,6 +242,49 @@ class recommendationDeleteView(DeleteView):
     model = Recommendation
     success_url = '/recommendation'
     template_name = 'app/doctor/DELETE.html'
+
+
+def patient(request):
+    error = ''
+    elements = Patient.objects.all()
+    if request.method == 'POST':
+        form = PatientForm(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            error = 'Возникла ошибка'
+    form = PatientForm()
+    context = {'elements': elements, 'form': form}
+    return render(request, 'app/doctor/Patient.html', context)
+
+class patientUpdateView(View):
+
+    def get(self, request, id):
+        patient = Patient.objects.get(pk=id)
+        elements = Patient.objects.all()
+        form = PatientForm(instance = patient)
+        return render(request, 'app/doctor/Patient.html', context = {'form': form, 'data':patient, 'elements': elements})
+
+    def post(self, request, id):
+        patient = Patient.objects.get(pk=id)
+        form = PatientForm(request.POST, instance = patient)
+        if form.is_valid():
+            form.save()
+            return redirect('/patient')
+        form = PatientForm()
+        return render(request, 'app/doctor/Patient.html', context = {'form': form, 'data': patient})
+
+#Подробности
+class patientDetailView(DetailView):
+    model = Patient
+    template_name = 'app/result_patient.html'
+    context_object_name = 'patient'
+
+# Удаление
+class patientDeleteView(DeleteView):
+    model = Patient
+    success_url = '/patient'
+    template_name = 'app/doctor/DELETE.html'
 #------------------------------------------------------- Конец Справочников -------------------------------------------------------
 
 
@@ -313,19 +307,6 @@ def personal_data(request):
     form = PatientForm()
     context = {'elements': elements, 'form': form}
     return render(request, 'app/diagnost_patient.html', context)
-
-def patient(request):
-    error = ''
-    elements = Patient.objects.all()
-    if request.method == 'POST':
-        form = PatientForm(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            error = 'Возникла ошибка'
-    form = PatientForm()
-    context = {'elements': elements, 'form': form}
-    return render(request, 'app/Patient.html', context)
 
 class result_patient(DeleteView):
     model = Patient

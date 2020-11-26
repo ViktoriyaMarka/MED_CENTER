@@ -99,6 +99,12 @@ body {
     width: 35%;
 }
 
+.left_block_container {
+    margin-right: -20px;
+    max-height: 500px;
+    overflow: auto;
+}
+
 .input_title {
     font-size: 13px;
     margin-top: 6px;
@@ -135,6 +141,9 @@ body {
         resize: none;
         padding: 10px 10px;
         height: 250px;
+    }
+    &.patient {
+        height: 200px;
     }
 }
 
@@ -193,6 +202,9 @@ body {
     &.profile_doctor {
         width: 100%;
     }
+    &.patient {
+        width: 250%;
+    }
 }
 
 .color {
@@ -216,6 +228,13 @@ th {
     &.black_title {
         background-color: #132452;
         color: white;
+    }
+}
+
+.header_link {
+    margin-right: 13px;
+    &:last-child {
+        margin-right: 0;
     }
 }
 
@@ -598,4 +617,10 @@ td {
 
 .stroke {
     line-height: 20px;
+}
+
+.elements_container {
+    position: relative;
+    max-height: 70px;
+    overflow: auto;
 }

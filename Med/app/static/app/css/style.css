@@ -134,6 +134,12 @@ body {
   width: 35%;
 }
 
+.left_block_container {
+  margin-right: -20px;
+  max-height: 500px;
+  overflow: auto;
+}
+
 .input_title {
   font-size: 13px;
   margin-top: 6px;
@@ -177,6 +183,10 @@ body {
   resize: none;
   padding: 10px 10px;
   height: 250px;
+}
+
+.input_text.patient {
+  height: 200px;
 }
 
 .right_block {
@@ -251,6 +261,10 @@ body {
   width: 100%;
 }
 
+.table.patient {
+  width: 250%;
+}
+
 .color {
   background-color: #dbdfe9;
 }
@@ -274,6 +288,14 @@ th {
 .header_table.black_title {
   background-color: #132452;
   color: white;
+}
+
+.header_link {
+  margin-right: 13px;
+}
+
+.header_link:last-child {
+  margin-right: 0;
 }
 
 .left_items {
@@ -722,5 +744,11 @@ td {
 
 .stroke {
   line-height: 20px;
+}
+
+.elements_container {
+  position: relative;
+  max-height: 70px;
+  overflow: auto;
 }
 /*# sourceMappingURL=style.css.map */

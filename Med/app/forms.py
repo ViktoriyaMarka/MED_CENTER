@@ -134,19 +134,19 @@ class PatientForm(ModelForm):
             }),
 
             "symptoms_patient": SelectMultiple(attrs={
-                'class': 'input_text process'
+                'class': 'input_text patient'
             }),
 
             "childhood_diseases": SelectMultiple(attrs={
-                'class': 'input_text process'
+                'class': 'input_text patient'
             }),
 
             "relatives_diseases": SelectMultiple(attrs={
-                'class': 'input_text process'
+                'class': 'input_text patient'
             }),
 
             "chronic_disease": Textarea(attrs={
-            'class': 'input_text process bigest',
+            'class': 'input_text patient',
             })
         }
 

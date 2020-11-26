@@ -20,11 +20,12 @@
         <a class="profile two" href="{% url 'report' %}">Сообщить об ошибке</a>
         <ul class="directory">
             <p class="panel_title_two">СПРАВОЧНИКИ</p>
+            {% if request.user.doctor_admin %}
+                <li class="li"><a class="link" href="{% url 'patient' %}">Пациенты</a></li>
+            {% endif %}
             <li class="li"><a class="link" href="{% url 'disease' %}">Заболевания</a></li>
             <li class="li"><a class="link" href="{% url 'symptom' %}">Симптомы</a></li>
             <li class="li"><a class="link" href="{% url 'medicalRecord' %}">Медицинские карты</a></li>
-            <li class="li"><a class="link" href="{% url 'patient' %}">Пациенты</a></li>
-            {% comment %} <li class="li"><a class="link" href="{% url 'distribution' %}">Распределения пациентов</a></li> {% endcomment %}
             <li class="li"><a class="link" href="{% url 'recommendation' %}">Рекомендации</a></li>
         </ul>
         <!-- directory -->
