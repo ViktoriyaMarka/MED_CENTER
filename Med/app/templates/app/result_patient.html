@@ -2,8 +2,8 @@
 <section class="title">
     <div class="all_container">
         <div class="title_inner">
-            <h1 class="name">РЕЗУЛЬТАТ ДИАГНОСТИКИ</h1>
-            <h2 class="subname">Ознакомьтесь с результатом первичной диагностики</h2>
+            <h1 class="name">РЕКОМЕНДАЦИЯ ПАЦИЕНТУ</h1>
+            <h2 class="subname">Составьте документ для отправки пациенту на почту</h2>
         </div>
         <!-- /.title_inner -->
     </div>
@@ -24,13 +24,23 @@
                     <p class="result_title">РЕКОМЕНДАЦИЯ</p>
                     <div class="result_subtitles">
                         <p class="result_subtitle">ФИО пациента: {{ patient.surname_patient}} {{ patient.name_patient}} {{ patient.middlename_patient}}</p>
-                        <p class="result_subtitle">День рождение пациента:</p>
-                        <p class="result_subtitle">Номер медицинской карты:</p>
-                        <p class="result_subtitle">Симптомы:</p>
-                        <p class="result_subtitle">Болезни детства:</p>
-                        <p class="result_subtitle">Болезни у родственников:</p>
-                        <p class="result_subtitle">Хронические заболевания:</p>
-                        <p class="result_subtitle">Вы направлены ко врачу:</p>
+                        <p class="result_subtitle">День рождение пациента: {{ patient.birthday_patient}}</p>
+                        <p class="result_subtitle">Номер медицинской карты: {{ patient.number_of_medical_card}}</p>
+                        <p class="result_subtitle">Уровени санитарного просвещения: {{ patient.enlightenment_patient}}</p>
+                        <p class="result_subtitle">Симптомы: 
+                            {% for s in patient.symptoms_patient.all %}
+                                {{ s.name_symptom}}
+                            {% endfor %}</p>
+                        <p class="result_subtitle">Болезни детства: 
+                            {% for s in patient.childhood_diseases.all %}
+                                {{ s.name_disease}}
+                            {% endfor %}</p>
+                        <p class="result_subtitle">Болезни у родственников: 
+                        {% for s in patient.relatives_diseases.all %}
+                                {{ s.name_disease}}
+                            {% endfor %}</p>
+                        <p class="result_subtitle">Хронические заболевания: {{patient.chronic_disease}}</p>
+                        <p class="result_subtitle">Направление ко врачу:</p>
                         <p class="result_subtitle date">Дата выдачи:</p>
                     </div>
                     <!-- /.result_subtitles -->

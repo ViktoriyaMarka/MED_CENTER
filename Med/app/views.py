@@ -277,6 +277,7 @@ class patientUpdateView(View):
 #Подробности
 class patientDetailView(DetailView):
     model = Patient
+    form_class = PatientForm
     template_name = 'app/result_patient.html'
     context_object_name = 'patient'
 

@@ -55,10 +55,9 @@ class Account(AbstractBaseUser):
     positions_doctor    = models.ForeignKey(Positions, on_delete = models.DO_NOTHING, verbose_name = 'Должность', null=True)
     patients            = models.ManyToManyField(to='app.Patient', verbose_name="Пациенты", blank='True')
     diseases            = models.ManyToManyField(to='app.Disease', verbose_name="Заболевания", blank='True')
-    doctor_admin        = models.BooleanField(verbose_name='Доктор-администратор',default = False)
+    is_staff            = models.BooleanField(verbose_name='Доктор-администратор',default = False)
     is_admin            = models.BooleanField(default = False)
     is_active           = models.BooleanField(default = True)
-    is_staff            = models.BooleanField(default = False)
     is_superuser        = models.BooleanField(default = False)
 
     USERNAME_FIELD = 'username'
