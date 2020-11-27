@@ -1,0 +1,69 @@
+{% extends 'app/BASE.html' %} 
+
+{% load static %} 
+
+{% block title %}Сообщить об ошибке{% endblock %} 
+
+{% block content %}
+<section class="title">
+    <div class="all_container">
+        <div class="title_inner">
+            <h1 class="name">СООБЩИТЬ ОБ ОШИБКЕ
+            </h1>
+            <h2 class="subname">Опишите вашу проблему</h2>
+        </div>
+        <!-- /.title_inner -->
+    </div>
+    <!-- /.title_container -->
+</section>
+<!-- /.title -->
+
+<section class="main">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="all_container">
+            <div class="main_inner">
+                <div class="input_items">
+                    <div class="input_item">
+                        <p class="input_title">Введите Email*</p>
+                        <div class="input_elements">
+                            <input class="input_text" type="email" name="email_addres" value="{{inform.email}}">
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите тему сообщения*</p>
+                        <div class="input_elements">
+                            <input class="input_text" type="text" name="topic" value="Рекомендация ">
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Опишите сообщение*</p>
+                        <div class="input_elements">
+                            {{ form.problem_description }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
+                </div>
+                <!-- /.input_items -->
+                <div class="main_right_blockinform">
+                    <p class="main_right_block_title">ИНФОРМАЦИЯ</p>
+                    <p class="main_block_subtitle">
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been d in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
+                        including versions of Lorem Ipsum.
+                    </p>
+                </div>
+                <!-- /.main_right_block -->
+            </div>
+            <!-- /.main_inner -->
+            <button class="main_link report">СООБЩИТЬ</button>
+        </div>
+        <!-- /.all_container -->
+    </form>
+</section>
+<!-- /.main -->
+{% endblock %}

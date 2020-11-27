@@ -7,13 +7,14 @@ from account.models import Account
 
 # Пациент
 class Patient(models.Model):
-    surname_patient             = models.CharField(max_length=50, verbose_name='Фамилия пациента')
-    name_patient                = models.CharField(max_length=50, verbose_name='Имя пациента')
-    middlename_patient          = models.CharField(max_length=50, verbose_name='Отчество пациента')
-    birthday_patient            = models.DateField(max_length=50, verbose_name='День рождение пациента')
-    gender_patient              = models.CharField(max_length=50, verbose_name='Пол пациента')
-    enlightenment_patient       = models.CharField(max_length=50, verbose_name='Санитарное просвящение пациента')
-    number_of_medical_card      = models.CharField(max_length=50, verbose_name='Номер медицинской карты')
+    surname_patient             = models.CharField(max_length=50, verbose_name='Фамилия пациента', null=True, blank=True)
+    name_patient                = models.CharField(max_length=50, verbose_name='Имя пациента', null=True, blank=True)
+    middlename_patient          = models.CharField(max_length=50, verbose_name='Отчество пациента', null=True, blank=True)
+    email                       = models.EmailField(verbose_name='Почта', max_length=254, null=True, blank=True)
+    birthday_patient            = models.DateField(max_length=50, verbose_name='День рождение пациента', null=True, blank=True)
+    gender_patient              = models.CharField(max_length=50, verbose_name='Пол пациента', null=True, blank=True)
+    enlightenment_patient       = models.CharField(max_length=50, verbose_name='Санитарное просвящение пациента', null=True, blank=True)
+    number_of_medical_card      = models.CharField(max_length=50, verbose_name='Номер медицинской карты', null=True, blank=True)
     symptoms_patient            = models.ManyToManyField('Symptom', verbose_name="Симптомы", related_name = 'symptoms_patient' , blank=True)
     childhood_diseases          = models.ManyToManyField('Disease', verbose_name="Болезни детства", related_name = 'childhood_diseases', blank=True)
     relatives_diseases          = models.ManyToManyField('Disease', verbose_name="Болезни у родственников", related_name = 'relatives_diseases', blank=True)
@@ -30,6 +31,7 @@ class Patient(models.Model):
 # Указали какая именно будет выводиться информация если мы будем выводить просто объект
     def __str__(self):
         return self.surname_patient + ' ' + self.name_patient + ' ' + self.middlename_patient
+
     
     def get_absolute_url(self):
         return '/patient'
@@ -82,5 +84,17 @@ class MedicalRecord(models.Model):
 
     def get_absolute_url(self):
         return '/medicalRecord'
+
+class Inform(models.Model):
+    email_addres                = models.EmailField(max_length=250, verbose_name='Email пользователя', null=True, blank=True)
+    topic                       = models.CharField(max_length=50, verbose_name='Тема сообщения', null=True, blank=True)
+    problem_description         = models.TextField(max_length=5000, verbose_name='Описание проблемы', null=True, blank=True)
+
+    class Meta:
+        verbose_name            = "Оповещение пациента"
+        verbose_name_plural     = "Оповещения пациентов"
+
+    def __str__(self):
+        return self.topic
 
 

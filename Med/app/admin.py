@@ -8,6 +8,8 @@ admin.site.register(Patient)
 admin.site.register(Disease)
 admin.site.register(MedicalRecord)
 admin.site.register(Symptom)
+admin.site.register(Inform)
+
 
 
 

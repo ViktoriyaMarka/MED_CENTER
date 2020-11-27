@@ -345,6 +345,7 @@
 }
 
 .result_title {
+    font-family: sans-serif;
     margin-bottom: 40px;
     font-weight: 600;
     font-size: 35px;
@@ -390,4 +391,15 @@
     line-height: 27px;
     letter-spacing: 0.05em;
     color: #000000;
+}
+
+.all_links {
+    display: flex;
+}
+
+.all_link {
+    margin-right: 30px;
+    &:last-child {
+        margin-right: 0;
+    }
 }

@@ -20,18 +20,41 @@
             {% csrf_token %}
 
             <div class="left_block">
+            <div class="left_block_container">
                 <div class="left_items">
-                    <p class="input_title">Выберите пациента*</p>
-                    {{ form.fk_patient }}
+                    <p class="input_title symptoms">Номер медицинской карты*&nbsp;&nbsp;</p>
+                    {{ form.number_of_medical_card }}
                 </div>
                 <!-- /.left_items -->
                 <div class="left_items">
-                    <p class="input_title symptoms">Выберите заболевание*&nbsp;&nbsp;
-                        <a href="{% url 'disease' %}"><i style="color: green" class="fas fa-plus"></i></a>
-                    </p>
-                    {{ form.diseases }}
+                    <p class="input_title">Фамилия пациента*</p>
+                    {{ form.surname_patient }}
                 </div>
                 <!-- /.left_items -->
+                <div class="left_items">
+                    <p class="input_title symptoms">Имя пациента*&nbsp;&nbsp;</p>
+                    {{ form.name_patient }}
+                </div>
+                <!-- /.left_items -->
+                <div class="left_items">
+                    <p class="input_title symptoms">Отчество пациента*&nbsp;&nbsp;</p>
+                    {{ form.middlename_patient }}
+                </div>
+                <!-- /.left_items -->
+                <div class="left_items">
+                    <p class="input_title symptoms">Номер медицинской карты*&nbsp;&nbsp;</p>
+                    {{ form.gender_patient }}
+                </div>
+                <!-- /.left_items -->
+                <div class="left_items">
+                    <p class="input_title symptoms">Симптомы*&nbsp;&nbsp;
+                        <a href="{% url 'symptom' %}"><i style="color: green" class="fas fa-plus"></i></a></p>
+                    {{ form.symptoms_patient }}
+                </div>
+                <!-- /.left_items -->
+                </div>
+                <!-- /.left_block_container -->
+
                 <div class="buttons">
                     <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
                     <a href="{% url 'medicalRecord' %}" class="link">
@@ -48,7 +71,7 @@
                         <th width="10%" colspan="2">Действия</th>
                         <th width="15%">№ мед. карты</th>
                         <th width="50%">Пациент</th>
-                        <th>Заболевания</th>
+                        <th>Симптомы</th>
                     </tr>
                     {% for el in elements %}
                     <tr class="header_table">
@@ -58,12 +81,12 @@
                         <td>
                             <a href="{% url 'medicalRecord_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
                         </td>
-                        <td class="color">{{ el.fk_patient.number_of_medical_card }}</td>
-                        <td>{{ el.fk_patient }}</td>
+                        <td class="color">{{ el.number_of_medical_card}}</td>
+                        <td>{{ el.surname_patient}} {{ el.name_patient}} {{ el.middlename_patient}}</td>
                         <td class="color" style="padding:5px" width="30%">
-                            {% for s in el.diseases.all %}
-                            <p class="stroke">{{ s.name_disease }}</p>
-                            {% endfor %}
+                        {% for s in el.symptoms_patient.all%}
+                            <p class="stroke">{{ s.name_symptom }}</p>
+                        {% endfor %}
                         </td>
                     </tr>
                     {% endfor %} 

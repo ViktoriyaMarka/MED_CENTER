@@ -47,7 +47,7 @@
             <!-- /.main_left_block -->
             <div class="main_right_block">
                 <div class="main_right_elements">
-                {% if info %}
+                {% comment %} {% if info %} {% endcomment %}
                     <table class="table profile_doctor" border="0" cellspacing="0">
                         <tr class="header_table black_title">
                             <td colspan="5">Пациенты направленные к вам</td>
@@ -55,24 +55,26 @@
                         <tr class="header_table">
                             <th>ФИО</th>
                             <th>Дата рождения</th>
-                            <th>Пол</th>
-                            <th>Сан. просвещение</th>
-                            <th>Мед.карта</th>
+                            <th>№ мед. карты</th>
+                            <th>Симптомы</th>
+                            <th>СП</th>
                         </tr>
-                        {% for patient in info.patients.all %}
+                        {% for i in info %}
                             <tr class="header_table">
-                                <td>{{ patient.surname_patient }} {{ patient.name_patient }} {{ patient.middlename_patient }}</td>
-                                <td class="color">{{ patient.birthday_patient }}</td>
-                                <td>{{ patient.gender_patient }}</td>
-                                <td class="color">{{ patient.enlightenment_patient }}</td>
-                                <td>{{ patient.number_of_medical_card }}</td>
+                                <td>{{ i.surname_patient }} {{ i.name_patient }} {{ i.middlename_patient }}</td>
+                                <td class="color">{{ i.birthday_patient }}</td>
+                                <td >{{ i.number_of_medical_card }}</td>
+                                {% for s in i.symptoms_patient.all %}
+                                    <td class="color">{{ s.name_symptom }}</td>
+                                {% endfor %}
+                                <td >{{ i.enlightenment_patient }}</td>
                             </tr>
                         {% endfor %}
-                        {% else %}
+                        {% comment %} {% else %}
                             <tr class="header_table">
                             <td width=90%><p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p></td>
                             </tr>
-                        {% endif %}
+                        {% endif %} {% endcomment %}
                     </table>
                 </div>
                 <!-- /.main_right_elements -->

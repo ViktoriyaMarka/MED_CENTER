@@ -6,9 +6,62 @@ from app.forms import *
 from django.views.generic.base import RedirectView
 from django.views.generic import View, DeleteView, DetailView, UpdateView
 from django.db.models import Q
-from django.contrib.auth.models import User
+from django.core.mail import send_mail
+import xlwt
 
-# Create your views here.
+
+
+def export_users_xls(request, pk):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="users.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Users Data') # this will make a sheet named Users Data
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Username', 'First Name', 'Last Name', 'Email Address','Username', 'First Name', 'Last Name', 'Email Address' ]
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column 
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = Patient.objects.filter(pk__in=[pk]).values_list('surname_patient', 'name_patient', 'middlename_patient', 'birthday_patient','gender_patient','enlightenment_patient','number_of_medical_card','symptoms_patient','childhood_diseases','relatives_diseases','chronic_disease','description_recommendation','date_recommendation','period_recommendation','fk_account')
+    for row in rows:
+        row_num += 1
+        for col_num in range(len(row)):
+            ws.write(row_num, col_num, row[col_num], font_style)
+
+    wb.save(response)
+
+    return response
+
+
+
+def inform(request, pk):
+    error = ''
+    inform = Patient.objects.get(pk=pk)
+    form = InformForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        # topic = request.POST['topic']
+        # problem_description = request.POST['problem_description']
+        # email_addres = request.POST['email_addres']
+        send_mail(form.cleaned_data['topic'],form.cleaned_data['problem_description'],
+        'edx860@gmail.com',[form.cleaned_data['email_addres']], fail_silently=False)
+        return redirect ('/')
+    else:
+        error = 'Возникла ошибка'
+
+    form = InformForm()
+    context = {'form': form,'inform':inform}
+    return render(request, 'app/inform_patient.html', context)
 
 # ДОКТОР
 def auth(request):
@@ -37,15 +90,15 @@ def profile(request):
     if not user.is_authenticated:
         return redirect('/accounts/login/')
 
-    search_query = request.GET.get('search','')
-    if search_query:
-        # .objects.select_related().all()
-        info = Account.objects.filter(Q(patients__surname_patient__icontains=search_query) | 
-        Q(patients__name_patient__icontains=search_query) | 
-        Q(patients__middlename_patient__icontains=search_query) |
-        Q(patients__gender_patient__icontains=search_query))
-    else:
-        info = Account.objects.get(pk=request.user.id)
+    # search_query = request.GET.get('search','')
+    # if search_query:
+    #     # .objects.select_related().all()
+    #     info = Account.objects.filter(Q(patients__surname_patient__icontains=search_query) | 
+    #     Q(patients__name_patient__icontains=search_query) | 
+    #     Q(patients__middlename_patient__icontains=search_query) |
+    #     Q(patients__gender_patient__icontains=search_query))
+    # else:
+    info = Patient.objects.filter(fk_account__in=[user_id])
     elements = Disease.objects.all()
     context = {'elements': elements, 'info': info}
     return render(request, 'app/doctor/profile.html', context)
@@ -150,15 +203,15 @@ class symptomDeleteView(DeleteView):
 # Медицинские карты -------------------------------------------------------
 def medicalRecord(request):
     error = ''
-    search_query = request.GET.get('search','')
-    if search_query:
-        elements = MedicalRecord.objects.filter(Q(fk_patient__surname_patient__icontains=search_query) |
-        Q(fk_patient__name_patient__icontains=search_query) |
-        Q(fk_patient__middlename_patient__icontains=search_query) | 
-        Q(fk_patient__number_of_medical_card__icontains=search_query) |
-        Q(diseases__name_disease__icontains=search_query))
-    else:
-        elements = MedicalRecord.objects.all()
+    # search_query = request.GET.get('search','')
+    # if search_query:
+    #     elements = MedicalRecord.objects.filter(Q(fk_patient__surname_patient__icontains=search_query) |
+    #     Q(fk_patient__name_patient__icontains=search_query) |
+    #     Q(fk_patient__middlename_patient__icontains=search_query) | 
+    #     Q(fk_patient__number_of_medical_card__icontains=search_query) |
+    #     Q(diseases__name_disease__icontains=search_query))
+    # else:
+    elements = Patient.objects.all()
     if request.method == 'POST':
         form = MedicalRecordForm(request.POST)
         if form.is_valid():
@@ -172,23 +225,23 @@ def medicalRecord(request):
 class medicalRecordUpdateView(View):
 
     def get(self, request, id):
-        medicalRecord = MedicalRecord.objects.get(pk=id)
-        elements = MedicalRecord.objects.all()
+        medicalRecord = Patient.objects.get(pk=id)
+        elements = Patient.objects.all()
         form = MedicalRecordForm(instance = medicalRecord)
         return render(request, 'app/doctor/MedicalRecord.html', context = {'form': form, 'data':medicalRecord , 'elements': elements} )
 
     def post(self, request, id):
-        medicalRecord = MedicalRecord.objects.get(pk=id)
+        medicalRecord = Patient.objects.get(pk=id)
         form = MedicalRecordForm(request.POST, instance = medicalRecord)
         if form.is_valid():
             form.save()
             return redirect(medicalRecord)
         form = MedicalRecordForm()
-        return render(request, 'app/doctor/MedicalRecord.html', context = {'form': form, 'data':medicalRecord} )
+        return render(request, 'app/doctor/MedicalRecord.html', context = {'form': form, 'data': medicalRecord} )
 
 # Удаление
 class medicalRecordDeleteView(DeleteView):
-    model = MedicalRecord
+    model = Patient
     success_url = '/medicalRecord'
     template_name = 'app/doctor/DELETE.html'
 
@@ -221,7 +274,6 @@ def recommendation(request):
     return render(request, 'app/doctor/Recommendation.html', context)
 
 class recommendationUpdateView(View):
-
     def get(self, request, id):
         recommendation = Patient.objects.get(pk=id)
         elements = Patient.objects.all()
@@ -233,7 +285,7 @@ class recommendationUpdateView(View):
         form = RecommendationForm(request.POST, instance = recommendation)
         if form.is_valid():
             form.save()
-            return redirect(recommendation)
+            return redirect('recommendation')
         form = RecommendationForm()
         return render(request, 'app/doctor/Recommendation.html', context = {'form': form, 'data': recommendation})
 
@@ -242,31 +294,6 @@ class recommendationDeleteView(DeleteView):
     model = Patient
     success_url = '/recommendation'
     template_name = 'app/doctor/DELETE.html'
-
-# class patientRecomendationCreateView(View):
-
-#     def get(self, request, id):
-#         patient = Patient.objects.get(pk=id)
-#         elements = Patient.objects.all()
-#         form = RecommendationForm()
-#         form2 = PatientForm(instance = patient)
-#         return render(request, 'app/doctor/Recommendation.html', context = {'form': form,'form2': form2, 'data':patient, 'elements': elements})
-
-#     def post(self, request, id):
-#         patient = Patient.objects.get(pk=id)
-#         if request.method == 'POST':
-#             form = RecommendationForm(request.POST)
-#             form2 = PatientForm(request.POST)
-#             if form.is_valid():
-#                 form.save()
-#                 form2.save()
-#         else:
-#             error = 'Возникла ошибка'
-#         form = RecommendationForm()
-#         form2 = PatientForm()
-#         return render(request, 'app/doctor/Recommendation.html', context = {'form': form,'form2': form2, 'data': patient})
-
-
 
 def patient(request):
     error = ''
@@ -338,27 +365,6 @@ class result_patient(DeleteView):
     form_class = PatientForm
     template_name = 'app/result_patient.html'
 
-# class processView(View):
-
-#     def get(self, request, pk):
-#         patient = Patient.objects.get(pk=pk)
-#         elements = Patient.objects.all()
-#         form = PatientProcessForm()
-#         context = {'form': form,'elements': elements,'patient': patient}
-#         return render(request, 'app/diagnost_process.html', context)
-
-#     def post(self, request, pk):
-#         patient = Patient.objects.get(pk=pk)
-#         form = PatientProcessForm(request.POST)
-#         if form.is_valid():
-#             new = form.save()
-#             return redirect(new)
-#         form = PatientProcessForm()
-#         return render(request, 'app/diagnost_process.html', context = {'form': form})
-
-# def patient(request):
-#     data_patient = Patient.objects.order_by()[:1] #вывод только первого пациента
-#     return render(request, 'app/patient.html', {'data_patient': data_patient}) 
 
 
 

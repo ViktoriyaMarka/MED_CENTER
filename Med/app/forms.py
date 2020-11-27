@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, TextInput, DateInput, Select, SelectMultiple, Textarea, CheckboxInput, NumberInput
+from django.forms import ModelForm, TextInput, DateInput, Select, SelectMultiple, Textarea, CheckboxInput, NumberInput, EmailInput, FileInput
 from account.models import Account
 from app.models import *
 
@@ -19,6 +19,25 @@ class AccountForm(ModelForm):
         if commit:
             user.save()
         return user
+
+class InformForm(ModelForm):
+    class Meta:
+        model = Inform
+        fields = '__all__'
+
+        widgets = {
+            "email_addres": TextInput(attrs={
+                'class': 'input_text'
+            }),
+
+            "topic": TextInput(attrs={
+                'class': 'input_text'
+            }),
+
+            "problem_description": Textarea(attrs={
+                'class': 'input_text report'
+            })
+        }
 
 class DiseaseForm(ModelForm):
     class Meta:
@@ -43,25 +62,6 @@ class DiseaseForm(ModelForm):
             })
         }
 
-# class DistributionForm(ModelForm):
-#     class Meta:
-#         model = Distribution
-#         fields = '__all__'
-
-#         widgets = {
-#             "name_distribution": TextInput(attrs={
-#             'class': 'input_text'
-#             }),
-
-#             "fk_patient": Select(attrs={
-#             'class': 'input_text'
-#             }),
-
-#             "fk_doctor": Select(attrs={
-#             'class': 'input_text'
-#             })
-#         }
-
 class SymptomForm(ModelForm):
     class Meta:
         model = Symptom
@@ -79,16 +79,32 @@ class SymptomForm(ModelForm):
 
 class MedicalRecordForm(ModelForm):
     class Meta:
-        model = MedicalRecord
+        model = Patient
         fields = '__all__'
 
         widgets = {
-            "fk_patient": Select(attrs={
-            'class': 'input_text'
+            "surname_patient": TextInput(attrs={
+                'class': 'input_text',
             }),
 
-            "diseases": SelectMultiple(attrs={
-            'class': 'input_text symptom'
+            "name_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "middlename_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "gender_patient": TextInput(attrs={
+                'class': 'input_text',
+            }),
+
+            "symptoms_patient": SelectMultiple(attrs={
+                'class': 'input_text patient'
+            }),
+
+            "number_of_medical_card": NumberInput(attrs={
+                'class': 'input_text',
             })
         }
 
@@ -99,6 +115,10 @@ class RecommendationForm(ModelForm):
         fields = '__all__'
 
         widgets = {
+            "email": EmailInput(attrs={
+            'class': 'input_text'
+            }),
+
             "description_recommendation": Textarea(attrs={
             'class': 'input_text recommendation'
             }),
@@ -159,9 +179,13 @@ class RecommendationForm(ModelForm):
 class PatientForm(ModelForm):
     class Meta:
         model = Patient
-        fields = ['surname_patient', 'name_patient', 'middlename_patient', 'number_of_medical_card', 'symptoms_patient', 'childhood_diseases', 'relatives_diseases', 'chronic_disease','gender_patient','enlightenment_patient','birthday_patient']
+        fields = ['surname_patient', 'name_patient', 'middlename_patient', 'number_of_medical_card', 'symptoms_patient', 'childhood_diseases', 'relatives_diseases', 'chronic_disease','gender_patient','enlightenment_patient','birthday_patient','email']
 
         widgets = {
+            "email": EmailInput(attrs={
+                'class': 'input_text',
+            }),
+
             "surname_patient": TextInput(attrs={
                 'class': 'input_text',
             }),

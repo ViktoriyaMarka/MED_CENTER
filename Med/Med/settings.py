@@ -131,7 +131,7 @@ STATICFILES_DIRS = [
     # '/var/www/static/',
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'edx860@gmail.com'

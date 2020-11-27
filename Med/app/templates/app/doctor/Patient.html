@@ -29,6 +29,11 @@
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
+                        <p class="input_title">Email*</p>
+                        {{ form.email }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
                         <p class="input_title">Пол*</p>
                         {{ form.gender_patient }}
                     </div>
@@ -49,17 +54,20 @@
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Симптомы*</p>
+                        <p class="input_title">Симптомы*&nbsp;&nbsp;
+                        <a href="{% url 'symptom' %}"><i style="color: green" class="fas fa-plus"></i></a></p>
                         {{ form.symptoms_patient }}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Болезни детства*</p>
+                        <p class="input_title">Болезни детства*&nbsp;&nbsp;
+                        <a href="{% url 'disease' %}"><i style="color: green" class="fas fa-plus"></i></a></p>
                         {{ form.childhood_diseases }}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Болезни родителей*</p>
+                        <p class="input_title">Болезни родителей*&nbsp;&nbsp;
+                        <a href="{% url 'disease' %}"><i style="color: green" class="fas fa-plus"></i></a></p>
                         {{ form.relatives_diseases }}
                     </div>
                     <!-- /.left_items -->
@@ -83,7 +91,7 @@
                 {% if elements %}
                 <table class="table patient" border="0" cellspacing="0">
                     <tr class="header_table">
-                        <th width="5%">Действия</th>
+                        <th width="4%" colspan="2">Действия</th>
                         <th>№</th>
                         <th>ФИО пациента</th>
                         <th>№ Мед. карты</th>
@@ -91,20 +99,22 @@
                         <th>Санитарное просвещение</th>
                         <th width="30px">Симтомы</th>
                         <th>Белезни детства</th>
-                        <th>Болезни родственников</th>
+                        <th>Болезни у родственников</th>
                         <th>Хронические заболевания</th>
                     </tr>
                     {% for el in elements %}
                     <tr class="header_table">
-                        <td class="header_links">
-                            <a class="header_link" href="{% url 'patient_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
-                            <a class="header_link" href="{% url 'patient_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
+                        <td>
+                            <a href="{% url 'patient_update' el.id  %}"><i style="color:rgb(209, 149, 36)" class="fas fa-edit"></i></a>
+                        </td>
+                        <td>
+                            <a href="{% url 'patient_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
                         </td>
                         <td class="color" width="2%">{{ el.id }}</td>
                         <td width="15%">{{ el.surname_patient }} {{el.name_patient}} {{el.middlename_patient}}</td>
-                        <td class="color" width="15%">{{ el.number_of_medical_card }}</td>
-                        <td class="color" width="15%">{{ el.gender_patient }}</td>
-                        <td class="color" width="15%">{{ el.enlightenment_patient }}</td>
+                        <td class="color" width="5%">{{ el.number_of_medical_card }}</td>
+                        <td  width="5%">{{ el.gender_patient }}</td>
+                        <td class="color" width="7%">{{ el.enlightenment_patient }}</td>
                         <td width="15%">
                             <div class="elements_container">
                                 {% for s in el.symptoms_patient.all %}

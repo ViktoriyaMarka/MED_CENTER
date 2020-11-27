@@ -6,10 +6,14 @@ urlpatterns = [
     # Если пользователь перешёл на главную страницу, то нужно вызвать метод views
     # После этого прописываем метод в файле views.py
     # После точки указываем нужный метод в файле views.py
+    # path('pdf_view/', views.ViewPDF.as_view(), name="pdf_view"),
+    # path('pdf_download/', views.DownloadPDF.as_view(), name="pdf_download"),
+
     path('', views.index, name='index'),
     path('register', views.register, name='register'),
     path('auth', views.auth, name='auth'),
     path('profile', views.profile, name='profile'),
+    path('inform/<int:pk>', views.inform, name='inform'),
 
 
     path('disease', views.disease, name='disease'),
@@ -34,6 +38,7 @@ urlpatterns = [
     path('patient/<int:pk>/delete', views.patientDeleteView.as_view(), name='patient_delete'),
     # path('patient/<int:id>/create', views.patientRecomendationCreateView.as_view(), name='recomendation_create'),
 
+    path('export_users_xls/<int:pk>', views.export_users_xls, name='export_users_xls'),
 
 # Пациент -------------------------------------------------------------------------------
 
