@@ -44,6 +44,7 @@ urlpatterns = [
 
     path('personal_data', views.personal_data, name='personal_data'),
     path('result_patient/<int:pk>/detail', views.result_patient.as_view(), name='result_patient'),
-    
-    # path('process/<int:pk>', views.processView.as_view(), name='process'),
+    path('welldone', views.welldone, name='welldone'),
+
+    path('logout', views.logout_view, name='logout'),
 ]

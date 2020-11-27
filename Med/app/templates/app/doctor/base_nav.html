@@ -31,7 +31,8 @@
             {% endif %}
         </ul>
         <!-- directory -->
-        <input type="button" class="exit" value="Выйти из аккаунта">
+        <a class="link" href="{% url 'logout' %}">Выйти из аккаунта</a>
+        {% comment %} <input type="button" class="exit" value="Выйти из аккаунта"> {% endcomment %}
     </section>
 
     {% block content %} 

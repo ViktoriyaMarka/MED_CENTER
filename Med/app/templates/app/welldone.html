@@ -1,0 +1,44 @@
+{% extends 'app/BASE.html' %} {% load static %} {% block title %}Заявка принята{% endblock %} {% block content %}
+<section class="title">
+    <div class="all_container">
+        <div class="title_inner">
+            <h1 class="name">РЕЗУЛЬТАТ ДИАГНОСТИКИ
+            </h1>
+            <h2 class="subname">Дождитесь оповещения на почте</h2>
+        </div>
+        <!-- /.title_inner -->
+    </div>
+    <!-- /.title_container -->
+</section>
+<!-- /.title -->
+
+<section class="main">
+    <form method="POST">
+        {% csrf_token %}
+        <div class="all_container">
+            <div class="result_block">
+                <div class="result_inner">
+                    <p class="result_title">ЗАЯВКА НАХОДИТЬСЯ В ОБРАБОТКЕ</p>
+                    <div class="result_subtitles">
+                        <p class="result_subtitle">В ближайшее время вам придёт </p>
+                        <p class="result_subtitle">оповещение на почту с </p>
+                        <p class="result_subtitle">информацией о результате </p>
+                        <p class="result_subtitle">прохождения диагностики</p>
+                    </div>
+                    <!-- /.result_subtitles -->
+                </div>
+                <!-- /.result_inner -->
+            </div>
+            <!-- /.result_block -->
+            <div class="bottom_buttons">
+                <a class="main_link welldone" href="{% url 'index'%}">ПЕРЕЙТИ НА ГЛАВНУЮ</a>
+                <!-- <button class="main_link welldone">ПЕРЕЙТИ НА ГЛАВНУЮ</button> -->
+                <p class="welldone">Нажимая на кнопку вы перейдёте на гланую страницу сайта</p>
+            </div>
+            <!-- /.bottom_buttons -->
+        </div>
+        <!-- /.all_container -->
+    </form>
+</section>
+<!-- /.main -->
+{% endblock %}

@@ -1,10 +1,4 @@
-{% extends 'app/BASE.html' %} 
-
-{% load static %} 
-
-{% block title %}Кабинет диагностики{% endblock %} 
-
-{% block content %}
+{% extends 'app/BASE.html' %} {% load static %} {% block title %}Кабинет диагностики{% endblock %} {% block content %}
 <section class="title">
     <div class="all_container">
         <div class="title_inner">
@@ -89,6 +83,14 @@
                         <!-- /.input_elements -->
                     </div>
                     <!-- /.input_item -->
+                    <div class="input_item">
+                        <p class="input_title">Введите Email</p>
+                        <div class="input_elements">
+                            {{ form.email }}
+                        </div>
+                        <!-- /.input_elements -->
+                    </div>
+                    <!-- /.input_item -->
                 </div>
                 <!-- /.input_items -->
                 <div class="main_right_block">
@@ -118,8 +120,7 @@
                                 Выберите болезни, которыми были больны ваши родственники
                             </p>
                             <div class="input_elements">
-                                {{ form.relatives_diseases }}
-                            {% comment %} <select name="childhood_diseases" id="id_select"  class="input_text process" multiple="multiple">                       {% endcomment %}
+                                {{ form.relatives_diseases }} {% comment %} <select name="childhood_diseases" id="id_select" class="input_text process" multiple="multiple">                       {% endcomment %}
                             {% comment %} {% for f in fil %}
                                 {% for el in f %} {% endcomment %}
                                     {% comment %} {% for s in el.childhood_diseases.all %} {% endcomment %}
@@ -146,14 +147,13 @@
                     В случае, если у вас есть хронические заболевания опишите их
                 </p>
                 <div class="input_elements">
-                    {{ form.chronic_disease }}
+                    <textarea class="input_text patient chronic" name="chronic_disease" id=""></textarea>
                 </div>
                 <!-- /.input_elements -->
             </div>
             <!-- /.input_item -->
             <div class="bottom_buttons">
-            <button class="main_link">ПРОЙТИ ДИАГНОСТИКУ</button>
-                {% comment %} <a class="main_link" href="{{ elements.get_update_url }}" role="button">ПРОЙТИ ДИАГНОСТИКУ</a> {% endcomment %}
+                <button class="main_link">ПРОЙТИ ДИАГНОСТИКУ</button> {% comment %} <a class="main_link" href="{{ elements.get_update_url }}" role="button">ПРОЙТИ ДИАГНОСТИКУ</a> {% endcomment %}
                 <p>Нажимая на кнопку вы соглашаетесь на обработку персональных данных</p>
             </div>
             <!-- /.bottom_buttons -->

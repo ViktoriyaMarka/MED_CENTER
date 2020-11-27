@@ -22,24 +22,14 @@
 }
 
 .header_inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .nav_img {
@@ -56,7 +46,6 @@
   color: #000000;
   text-decoration: none;
 }
-
 .nav_link:last-child {
   margin-right: 0;
 }
@@ -73,12 +62,8 @@
 }
 
 .title_inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 .name {
@@ -100,7 +85,6 @@
 .input_item {
   margin-bottom: 23px;
 }
-
 .input_item:last-child {
   margin-bottom: 0;
 }
@@ -115,12 +99,8 @@
 }
 
 .main_inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  justify-content: space-between;
 }
 
 .input_text {
@@ -128,46 +108,30 @@
   font-size: 15px;
   width: 500px;
 }
-
 .input_text.report {
   resize: vertical;
   height: 200px;
 }
-
 .input_text.patient {
   resize: vertical;
   height: 170px;
 }
-
 .input_text.chronic {
   width: 100%;
 }
 
 .input_elements {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
 
 .main_right_block {
   padding: 15px 20px 15px 25px;
   background-color: #eeeeee;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: left;
-      -ms-flex-align: left;
-          align-items: left;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
 }
 
 .main_button {
@@ -186,15 +150,9 @@
 
 .main_link {
   display: block;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 500px;
   height: 52px;
   border: none;
@@ -207,7 +165,6 @@
   color: #232323;
   cursor: pointer;
 }
-
 .main_link.report {
   margin-top: 30px;
 }
@@ -223,15 +180,9 @@
 }
 
 .footer_inner {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .left_link {
@@ -275,33 +226,17 @@
 .diagnostik_inner {
   width: 100%;
   height: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
 }
 
 .diagnostik_items {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-
 .diagnostik_items .diagnostik_title {
   margin-bottom: 57px;
   font-style: normal;
@@ -310,7 +245,6 @@
   line-height: 98px;
   color: #ffffff;
 }
-
 .diagnostik_items .diagnostik_subtitle {
   margin-bottom: 90px;
   width: 679px;
@@ -321,7 +255,6 @@
   text-align: center;
   color: #ffffff;
 }
-
 .diagnostik_items .diagnostik_link {
   padding: 19px 38px;
   font-style: normal;
@@ -332,10 +265,8 @@
   color: #ffffff;
   border: 2px solid #ffffff;
   text-decoration: none;
-  -webkit-transition: all 0.2s linear;
   transition: all 0.2s linear;
 }
-
 .diagnostik_items .diagnostik_link:hover {
   background-color: #fff;
   color: #000;
@@ -378,14 +309,9 @@
 
 .bottom_buttons {
   margin-top: 23px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  align-items: center;
 }
-
 .bottom_buttons p {
   font-weight: 500;
   font-size: 13px;
@@ -399,20 +325,13 @@
   background: #DCDCDC;
   border: 1px solid #000000;
 }
-
 .result_block .export_block {
   position: absolute;
   right: 0;
   top: 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  justify-content: center;
+  align-items: center;
   width: 38px;
   height: 38px;
   border-left: 1px solid #000000;
@@ -435,11 +354,9 @@
 .result_subtitle {
   margin-bottom: 15px;
 }
-
 .result_subtitle.date {
   margin-top: 40px;
 }
-
 .result_subtitle:last-child {
   margin-bottom: 0;
 }
@@ -457,10 +374,9 @@
   line-height: 37px;
   color: #3F3F3F;
 }
-
 .main_right_block_title:after {
   display: block;
-  content: '';
+  content: "";
   margin-top: 19px;
   margin-bottom: 24px;
   width: 100%;
@@ -476,16 +392,12 @@
 }
 
 .all_links {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 .all_link {
   margin-right: 30px;
 }
-
 .all_link:last-child {
   margin-right: 0;
 }
-/*# sourceMappingURL=style_diagnost.css.map */

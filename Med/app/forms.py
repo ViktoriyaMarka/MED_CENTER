@@ -226,8 +226,8 @@ class PatientForm(ModelForm):
                 'class': 'input_text patient'
             }),
 
-            "chronic_disease": Textarea(attrs={
-            'class': 'input_text patient'
-            })
+            # "chronic_disease": Textarea(attrs={
+            # 'class': 'input_text patient chronic'
+            # })
         }
 

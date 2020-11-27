@@ -8,6 +8,7 @@ from django.views.generic import View, DeleteView, DetailView, UpdateView
 from django.db.models import Q
 from django.core.mail import send_mail
 import xlwt
+from django.http import HttpResponse
 
 
 
@@ -24,7 +25,7 @@ def export_users_xls(request, pk):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Username', 'First Name', 'Last Name', 'Email Address','Username', 'First Name', 'Last Name', 'Email Address' ]
+    columns = ['Фамилия', 'Имя', 'Отчество', 'Дата рождения','Пол', 'СП', 'Номер мед карты', 'Симптомы','Болезни в детстве','Болезни родственников','Хронические заболевания','Описание рекомендации','дата назначения','Период','Врач' ]
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column 
@@ -32,7 +33,7 @@ def export_users_xls(request, pk):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = Patient.objects.filter(pk__in=[pk]).values_list('surname_patient', 'name_patient', 'middlename_patient', 'birthday_patient','gender_patient','enlightenment_patient','number_of_medical_card','symptoms_patient','childhood_diseases','relatives_diseases','chronic_disease','description_recommendation','date_recommendation','period_recommendation','fk_account')
+    rows = Patient.objects.filter(pk__in=[pk]).values_list('surname_patient', 'name_patient', 'middlename_patient', 'birthday_patient','gender_patient','enlightenment_patient','number_of_medical_card','symptoms_patient__name_symptom','childhood_diseases__name_disease','relatives_diseases__name_disease','chronic_disease','description_recommendation','date_recommendation','period_recommendation','fk_account__surname_doctor')
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):
@@ -50,9 +51,6 @@ def inform(request, pk):
     form = InformForm(request.POST or None)
     if form.is_valid():
         form.save()
-        # topic = request.POST['topic']
-        # problem_description = request.POST['problem_description']
-        # email_addres = request.POST['email_addres']
         send_mail(form.cleaned_data['topic'],form.cleaned_data['problem_description'],
         'edx860@gmail.com',[form.cleaned_data['email_addres']], fail_silently=False)
         return redirect ('/')
@@ -90,15 +88,17 @@ def profile(request):
     if not user.is_authenticated:
         return redirect('/accounts/login/')
 
-    # search_query = request.GET.get('search','')
-    # if search_query:
-    #     # .objects.select_related().all()
-    #     info = Account.objects.filter(Q(patients__surname_patient__icontains=search_query) | 
-    #     Q(patients__name_patient__icontains=search_query) | 
-    #     Q(patients__middlename_patient__icontains=search_query) |
-    #     Q(patients__gender_patient__icontains=search_query))
-    # else:
-    info = Patient.objects.filter(fk_account__in=[user_id])
+    search_query = request.GET.get('search','')
+    if search_query:
+        info = Patient.objects.filter(Q(surname_patient__icontains=search_query) | 
+        Q(name_patient__icontains=search_query) | 
+        Q(middlename_patient__icontains=search_query) |
+        Q(number_of_medical_card__icontains=search_query) |
+        Q(enlightenment_patient__icontains=search_query) |
+        Q(symptoms_patient__name_symptom__icontains=search_query) |
+        Q(birthday_patient__icontains=search_query))
+    else:
+        info = Patient.objects.filter(fk_account__in=[user_id])
     elements = Disease.objects.all()
     context = {'elements': elements, 'info': info}
     return render(request, 'app/doctor/profile.html', context)
@@ -203,15 +203,16 @@ class symptomDeleteView(DeleteView):
 # Медицинские карты -------------------------------------------------------
 def medicalRecord(request):
     error = ''
-    # search_query = request.GET.get('search','')
-    # if search_query:
-    #     elements = MedicalRecord.objects.filter(Q(fk_patient__surname_patient__icontains=search_query) |
-    #     Q(fk_patient__name_patient__icontains=search_query) |
-    #     Q(fk_patient__middlename_patient__icontains=search_query) | 
-    #     Q(fk_patient__number_of_medical_card__icontains=search_query) |
-    #     Q(diseases__name_disease__icontains=search_query))
-    # else:
-    elements = Patient.objects.all()
+    search_query = request.GET.get('search','')
+    if search_query:
+        elements = Patient.objects.filter(Q(surname_patient__icontains=search_query) |
+        Q(name_patient__icontains=search_query) |
+        Q(middlename_patient__icontains=search_query) | 
+        Q(symptoms_patient__name_symptom__icontains=search_query) |
+        Q(number_of_medical_card__icontains=search_query) |
+        Q(gender_patient__icontains=search_query))
+    else:
+        elements = Patient.objects.all()
     if request.method == 'POST':
         form = MedicalRecordForm(request.POST)
         if form.is_valid():
@@ -250,19 +251,25 @@ class medicalRecordDeleteView(DeleteView):
 # Рекомендации -------------------------------------------------------
 def recommendation(request):
     error = ''
-    # search_query = request.GET.get('search','')
-    # if search_query:
-    #     elements = Recommendation.objects.filter(Q(description_recommendation__icontains=search_query) |
-    #     Q(fk_distribution__patients__surname_patient__icontains=search_query) |
-    #     Q(fk_distribution__patients__name_patient__icontains=search_query) |
-    #     Q(fk_distribution__patients__middlename_patient_icontains=search_query) | 
-    #     Q(fk_distribution__surname_doctor__icontains=search_query) |
-    #     Q(fk_distribution__name_doctor__icontains=search_query) |
-    #     Q(fk_distribution__middlename_doctor__icontains=search_query) |
-    #     Q(date_recommendation__icontains=search_query) |
-    #     Q(period_recommendation__icontains=search_query))
-    # else:
-    elements = Patient.objects.all()
+    search_query = request.GET.get('search','')
+    if search_query:
+        elements = Patient.objects.filter(Q(description_recommendation__icontains=search_query) |
+        Q(email__icontains=search_query) |
+        Q(name_patient__icontains=search_query) |
+        Q(middlename_patient__icontains=search_query) | 
+        Q(surname_patient__icontains=search_query) | 
+        Q(fk_account__surname_doctor__icontains=search_query) |
+        Q(fk_account__name_doctor__icontains=search_query) |
+        Q(fk_account__middlename_doctor__icontains=search_query) |
+        Q(birthday_patient__icontains=search_query) |
+        Q(number_of_medical_card__icontains=search_query) |
+        Q(gender_patient__icontains=search_query) |
+        Q(symptoms_patient__name_symptom__icontains=search_query) |
+        Q(childhood_diseases__name_disease__icontains=search_query) |
+        Q(relatives_diseases__name_disease__icontains=search_query) |
+        Q(chronic_disease__icontains=search_query))
+    else:
+        elements = Patient.objects.all()
     if request.method == 'POST':
         form = RecommendationForm(request.POST)
         if form.is_valid():
@@ -297,7 +304,21 @@ class recommendationDeleteView(DeleteView):
 
 def patient(request):
     error = ''
-    elements = Patient.objects.all()
+    search_query = request.GET.get('search','')
+    if search_query:
+        elements = Patient.objects.filter(Q(description_recommendation__icontains=search_query) |
+        Q(email__icontains=search_query) |
+        Q(name_patient__icontains=search_query) |
+        Q(middlename_patient__icontains=search_query) | 
+        Q(surname_patient__icontains=search_query) | 
+        Q(number_of_medical_card__icontains=search_query) |
+        Q(gender_patient__icontains=search_query) |
+        Q(symptoms_patient__name_symptom__icontains=search_query) |
+        Q(childhood_diseases__name_disease__icontains=search_query) |
+        Q(relatives_diseases__name_disease__icontains=search_query) |
+        Q(chronic_disease__icontains=search_query))
+    else:
+        elements = Patient.objects.all()
     if request.method == 'POST':
         form = PatientForm(request.POST)
         if form.is_valid():
@@ -354,6 +375,7 @@ def personal_data(request):
         form = PatientForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('welldone')
         else:
             error = 'Возникла ошибка'
     form = PatientForm()
@@ -365,6 +387,13 @@ class result_patient(DeleteView):
     form_class = PatientForm
     template_name = 'app/result_patient.html'
 
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+
+
+def welldone(request):
+    return render(request, 'app/welldone.html')
 
 
 

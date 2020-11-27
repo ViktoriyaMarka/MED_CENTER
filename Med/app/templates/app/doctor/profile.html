@@ -64,9 +64,12 @@
                                 <td>{{ i.surname_patient }} {{ i.name_patient }} {{ i.middlename_patient }}</td>
                                 <td class="color">{{ i.birthday_patient }}</td>
                                 <td >{{ i.number_of_medical_card }}</td>
-                                {% for s in i.symptoms_patient.all %}
-                                    <td class="color">{{ s.name_symptom }}</td>
-                                {% endfor %}
+                                
+                                    <td class="color">
+                                    {% for s in i.symptoms_patient.all %}
+                                    <p>{{ s.name_symptom }}</p>
+                                    {% endfor %}
+                                    </td>
                                 <td >{{ i.enlightenment_patient }}</td>
                             </tr>
                         {% endfor %}

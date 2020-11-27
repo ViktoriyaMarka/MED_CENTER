@@ -18,7 +18,7 @@ class Patient(models.Model):
     symptoms_patient            = models.ManyToManyField('Symptom', verbose_name="Симптомы", related_name = 'symptoms_patient' , blank=True)
     childhood_diseases          = models.ManyToManyField('Disease', verbose_name="Болезни детства", related_name = 'childhood_diseases', blank=True)
     relatives_diseases          = models.ManyToManyField('Disease', verbose_name="Болезни у родственников", related_name = 'relatives_diseases', blank=True)
-    chronic_disease             = models.CharField(max_length=250, verbose_name='Хронические заболевания', null=True)
+    chronic_disease             = models.CharField(max_length=250, verbose_name='Хронические заболевания', null=True, blank=True)
     description_recommendation  = models.CharField(max_length=200, verbose_name='Описание рекомендации',default="-", null=True, blank=True)
     date_recommendation         = models.DateField(max_length=50, verbose_name='Дата выдачи рекомендации', null=True, blank=True)
     period_recommendation       = models.DateField( verbose_name='Период времени', null=True, blank=True)
@@ -95,6 +95,6 @@ class Inform(models.Model):
         verbose_name_plural     = "Оповещения пациентов"
 
     def __str__(self):
-        return self.topic
+        return self.email_addres
 
 
