@@ -14,6 +14,11 @@
             <div class="left_block">
                 <div class="left_block_container">
                     <div class="left_items">
+                        <p class="input_title">Врач*</p>
+                        {{ form.fk_account }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
                         <p class="input_title">Дата назначения*</p>
                         {{ form.date_recommendation }}
                         {% comment %} <input class="input_text" type="date" name="date_recommendation"> {% endcomment %}
@@ -25,6 +30,13 @@
                         {% comment %} <input class="input_text" type="date" name="period_recommendation"> {% endcomment %}
                     </div>
                     <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Описание рекомендации*</p>
+                        {{ form.description_recommendation }}
+                    </div>
+                    <!-- /.left_items -->
+                    <br>
+                    <hr>
                     <div class="left_items">
                         <p class="input_title">Фамилия*</p>
                         {{ form.surname_patient }}
@@ -38,11 +50,6 @@
                     <div class="left_items">
                         <p class="input_title">Отчество*</p>
                         {{ form.middlename_patient }}
-                    </div>
-                    <!-- /.left_items -->
-                    <div class="left_items">
-                        <p class="input_title">Описание рекомендации*</p>
-                        {{ form.description_recommendation }}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
@@ -62,15 +69,9 @@
                     <!-- /.left_items -->
                     <div class="left_items">
                         <p class="input_title">Дата рождения*</p>
-                        <input class="input_text" type="date" name="birthday_patient">
+                        <input class="input_text" type="date" name="birthday_patient"  required="True">
                     </div>
                     <!-- /.left_items -->
-                    <div class="left_items">
-                        <p class="input_title">Врач*</p>
-                        {{ form.fk_account }}
-                    </div>
-                    <!-- /.left_items -->
-
                     <div class="left_items">
                         <p class="input_title">Номер медицинской карты*</p>
                         {{ form.number_of_medical_card }}
@@ -114,7 +115,7 @@
                 {% if elements %}
                 <table class="table patient" border="0" cellspacing="0">
                     <tr class="header_table">
-                        <th width="5%">Действия</th>
+                        <th width="4%">Действия</th>
                         <th>№</th>
                         <th>ФИО пациента</th>
                         <th>Пол</th>
@@ -136,9 +137,9 @@
                             <a class="header_link" href="{% url 'patient_detail' el.pk  %}"><i class="fas fa-plus-square"></i></a>
                             <a class="header_link" href="{% url 'recommendation_delete' el.id  %}"><i style="color:rgb(196, 14, 14)"  class="fas fa-trash-alt"></i></a>
                         </td>
-                        <td class="color" width="2%">{{ el.id }}</td>
+                        <td class="color" width="1.5%">{{ el.id }}</td>
                         <td width="13%">{{ el.surname_patient }} {{el.name_patient}} {{el.middlename_patient}}</td>
-                        <td class="color" width="5%">{{ el.gender_patient }}</td>
+                        <td class="color" width="4%">{{ el.gender_patient }}</td>
                         <td width="5%">{{ el.enlightenment_patient }}</td>
                         <td class="color" width="10%">{{ el.fk_account.surname_doctor }} {{el.fk_account.name_doctor}} {{el.fk_account.middlename_doctor}}</td>
                         <td width="10%">{{ el.description_recommendation }}</td>

@@ -29,13 +29,18 @@
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
-                        <p class="input_title">Email*</p>
-                        {{ form.email }}
+                        <p class="input_title">Дата рождения*</p>
+                        <input class="input_text" type="date" name="birthday_patient" required="True">
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
                         <p class="input_title">Пол*</p>
                         {{ form.gender_patient }}
+                    </div>
+                    <!-- /.left_items -->
+                    <div class="left_items">
+                        <p class="input_title">Email*</p>
+                        {{ form.email }}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
@@ -46,11 +51,6 @@
                     <div class="left_items">
                         <p class="input_title">Номер медицинской карты*</p>
                         {{ form.number_of_medical_card }}
-                    </div>
-                    <!-- /.left_items -->
-                    <div class="left_items">
-                        <p class="input_title">Дата рождения*</p>
-                        <input class="input_text" type="date" name="birthday_patient">
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
@@ -95,6 +95,7 @@
                         <th>№</th>
                         <th>ФИО пациента</th>
                         <th>№ Мед. карты</th>
+                        <th>Дата рождения</th>
                         <th>Пол</th>
                         <th>Санитарное просвещение</th>
                         <th width="30px">Симтомы</th>
@@ -113,9 +114,10 @@
                         <td class="color" width="2%">{{ el.id }}</td>
                         <td width="15%">{{ el.surname_patient }} {{el.name_patient}} {{el.middlename_patient}}</td>
                         <td class="color" width="5%">{{ el.number_of_medical_card }}</td>
-                        <td  width="5%">{{ el.gender_patient }}</td>
-                        <td class="color" width="7%">{{ el.enlightenment_patient }}</td>
-                        <td width="15%">
+                        <td  width="7%">{{ el.birthday_patient }}</td>
+                        <td class="color"  width="5%">{{ el.gender_patient }}</td>
+                        <td  width="7%">{{ el.enlightenment_patient }}</td>
+                        <td class="color" width="15%">
                             <div class="elements_container">
                                 {% for s in el.symptoms_patient.all %}
                                 <p class="stroke">{{ s.name_symptom }}</p>
@@ -123,7 +125,7 @@
                             </div>
                             <!-- /.elements_container -->
                         </td>
-                        <td class="color" width="15%">
+                        <td  width="15%">
                             <div class="elements_container">
                                 {% for s in el.childhood_diseases.all %}
                                 <p class="stroke">{{ s.name_disease }}</p>
@@ -131,7 +133,7 @@
                             </div>
                             <!-- /.elements_container -->
                         </td>
-                        <td width="15%">
+                        <td class="color" width="15%">
                             <div class="elements_container">
                                 {% for s in el.relatives_diseases.all %}
                                 <p class="stroke">{{ s.name_disease }}</p>
@@ -139,13 +141,13 @@
                             </div>
                             <!-- /.elements_container -->
                         </td>
-                        <td class="color" width="15%">{{ el.chronic_disease }}</td>
+                        <td  width="15%">{{ el.chronic_disease }}</td>
                     </tr>
                     {% endfor %} 
                     
                     {% else %}
                     <tr class="header_table">
-                        <td width=90%>
+                        <td class="color" width=90%>
                             <p style="margin:20px 20px 20px 20px" class="input_title">У вас нет записей</p>
                         </td>
                     </tr>

@@ -236,7 +236,7 @@ class PatientForm(ModelForm):
                 'required': 'true'
             }),
 
-            "birthday_patient": DateInput(attrs={
+            " ": DateInput(attrs={
                 'class': 'input_text',
                 'required': 'true'
             }),
