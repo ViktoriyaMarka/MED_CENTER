@@ -16,11 +16,8 @@
         </div>
         <!-- /.header -->
         <form action="{{ data.medicalRecord }}" method="POST" class="section" name='form_name'>
-
             {% csrf_token %}
-
             <div class="left_block">
-            <div class="left_block_container">
                 <div class="left_items">
                     <p class="input_title symptoms">Номер медицинской карты*&nbsp;&nbsp;</p>
                     {{ form.number_of_medical_card }}
@@ -42,19 +39,11 @@
                 </div>
                 <!-- /.left_items -->
                 <div class="left_items">
-                    <p class="input_title symptoms">Номер медицинской карты*&nbsp;&nbsp;</p>
-                    {{ form.gender_patient }}
-                </div>
-                <!-- /.left_items -->
-                <div class="left_items">
                     <p class="input_title symptoms">Симптомы*&nbsp;&nbsp;
                         <a href="{% url 'symptom' %}"><i style="color: green" class="fas fa-plus"></i></a></p>
                     {{ form.symptoms_patient }}
                 </div>
                 <!-- /.left_items -->
-                </div>
-                <!-- /.left_block_container -->
-
                 <div class="buttons">
                     <button type="submit" class="left_button">ПРИМЕНИТЬ</button>
                     <a href="{% url 'medicalRecord' %}" class="link">

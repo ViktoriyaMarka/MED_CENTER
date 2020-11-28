@@ -10,8 +10,6 @@ from django.core.mail import send_mail
 import xlwt
 from django.http import HttpResponse
 
-
-
 def export_users_xls(request, pk):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="users.xls"'
@@ -25,7 +23,10 @@ def export_users_xls(request, pk):
     font_style = xlwt.XFStyle()
     font_style.font.bold = True
 
-    columns = ['Фамилия', 'Имя', 'Отчество', 'Дата рождения','Пол', 'СП', 'Номер мед карты', 'Симптомы','Болезни в детстве','Болезни родственников','Хронические заболевания','Описание рекомендации','дата назначения','Период','Врач' ]
+    columns = ['Фамилия', 'Имя', 'Отчество', 'Дата рождения','Пол', 
+    'СП', 'Номер мед карты', 'Симптомы','Болезни в детстве',
+    'Болезни родственников','Хронические заболевания','Описание рекомендации',
+    'дата назначения','Период','Врач' ]
 
     for col_num in range(len(columns)):
         ws.write(row_num, col_num, columns[col_num], font_style) # at 0 row 0 column 
@@ -33,7 +34,11 @@ def export_users_xls(request, pk):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
-    rows = Patient.objects.filter(pk__in=[pk]).values_list('surname_patient', 'name_patient', 'middlename_patient', 'birthday_patient','gender_patient','enlightenment_patient','number_of_medical_card','symptoms_patient__name_symptom','childhood_diseases__name_disease','relatives_diseases__name_disease','chronic_disease','description_recommendation','date_recommendation','period_recommendation','fk_account__surname_doctor')
+    rows = Patient.objects.filter(pk__in=[pk]).values_list('surname_patient', 'name_patient', 
+    'middlename_patient', 'birthday_patient','gender_patient','enlightenment_patient',
+    'number_of_medical_card','symptoms_patient__name_symptom','childhood_diseases__name_disease',
+    'relatives_diseases__name_disease','chronic_disease','description_recommendation','date_recommendation',
+    'period_recommendation','fk_account__surname_doctor','fk_account__name_doctor','fk_account__middlename_doctor' )
     for row in rows:
         row_num += 1
         for col_num in range(len(row)):

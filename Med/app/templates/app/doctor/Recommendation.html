@@ -15,12 +15,14 @@
                 <div class="left_block_container">
                     <div class="left_items">
                         <p class="input_title">Дата назначения*</p>
-                        <input class="input_text" type="date" name="description_recommendation">
+                        {{ form.date_recommendation }}
+                        {% comment %} <input class="input_text" type="date" name="date_recommendation"> {% endcomment %}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">
                         <p class="input_title">Период*</p>
-                        <input class="input_text" type="date" name="period_recommendation">
+                        {{ form.period_recommendation }}
+                        {% comment %} <input class="input_text" type="date" name="period_recommendation"> {% endcomment %}
                     </div>
                     <!-- /.left_items -->
                     <div class="left_items">

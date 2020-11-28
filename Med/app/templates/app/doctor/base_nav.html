@@ -13,7 +13,7 @@
 
 <body>
     <section class="panel">
-        <p class="user">{{request.user}}</p>
+        <p class="user">{{request.user.surname_doctor}} {{request.user.name_doctor}} {{request.user.middlename_doctor}}</p>
         <p class="panel_title">МЕНЮ</p>
         <a class="profile" href="{% url 'index' %}">Главная страница</a>
         <a class="profile two" href="{% url 'profile' %}">Личный кабинет</a>
