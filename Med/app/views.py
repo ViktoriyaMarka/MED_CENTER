@@ -6,9 +6,12 @@ from app.forms import *
 from django.views.generic.base import RedirectView
 from django.views.generic import View, DeleteView, DetailView, UpdateView
 from django.db.models import Q
-from django.core.mail import send_mail
 import xlwt
 from django.http import HttpResponse
+from django.core.mail import send_mail, EmailMessage
+from django.conf import settings
+from django.template.loader import render_to_string
+
 
 def export_users_xls(request, pk):
     response = HttpResponse(content_type='application/ms-excel')
@@ -33,6 +36,7 @@ def export_users_xls(request, pk):
     # Sheet body, remaining rows
     font_style = xlwt.XFStyle()
 
+    # фильтрация и выбор записей из определённых полей если значения совпадает с указанным
     rows = Patient.objects.filter(pk__in=[pk]).values_list('surname_patient', 'name_patient', 
     'middlename_patient', 'birthday_patient','gender_patient','enlightenment_patient','number_of_medical_card',
     'symptoms_patient__name_symptom','childhood_diseases__name_disease','relatives_diseases__name_disease',
@@ -50,12 +54,13 @@ def export_users_xls(request, pk):
 
 def inform(request, pk):
     error = ''
-    inform = Patient.objects.get(pk=pk)
-    form = InformForm(request.POST or None)
+    inform = Patient.objects.get(pk=pk) #выбор записи равной id таблицы
+    form = InformForm(request.POST or None) 
+    # если форма валидно то в бд сохраняются данные и на почту пользователю отпраляется письмо
     if form.is_valid():
         form.save()
         send_mail(form.cleaned_data['topic'],form.cleaned_data['problem_description'],
-        'edx860@gmail.com',[form.cleaned_data['email_addres']], fail_silently=False)
+        settings.EMAIL_HOST_USER,[form.cleaned_data['email_addres']], fail_silently=False)
         return redirect ('/')
     else:
         error = 'Возникла ошибка'
@@ -86,11 +91,12 @@ def register(request):
     return render(request, 'registration/reg.html', context)
 
 def profile(request):
+    # пользователя не пустят на данну страницу если он не зарегистрирован
     user_id = request.user.id
     user = request.user
     if not user.is_authenticated:
         return redirect('/accounts/login/')
-
+    # поиск
     search_query = request.GET.get('search','')
     if search_query:
         info = Patient.objects.filter(Q(surname_patient__icontains=search_query) | 
@@ -139,15 +145,16 @@ def disease(request):
 class diseaseUpdateView(View):
 
     def get(self, request, id):
-        disease = Disease.objects.get(pk=id)
+        disease = Disease.objects.get(pk=id) #выбор записи равной id таблицы
         elements = Disease.objects.all()
         disease_form = DiseaseForm(instance = disease)
         return render(request, 'app/doctor/Disease.html', context = {'form': disease_form, 'data': disease, 'elements': elements} )
 
     def post(self, request, id):
-        disease = Disease.objects.get(pk=id)
+        disease = Disease.objects.get(pk=id) #выбор записи равной id таблицы
         disease_form = DiseaseForm(request.POST, instance = disease)
 
+        # сохранение данных
         if disease_form.is_valid():
             disease_form.save()
             return redirect(disease)
@@ -183,13 +190,13 @@ def symptom(request):
 class symptomUpdateView(View):
 
     def get(self, request, id):
-        symptom = Symptom.objects.get(pk=id)
+        symptom = Symptom.objects.get(pk=id) #выбор записи равной id таблицы
         elements = Symptom.objects.all()
         form = SymptomForm(instance = symptom)
         return render(request, 'app/doctor/Symptom.html', context = {'form': form, 'data':symptom, 'elements': elements} )
 
     def post(self, request, id):
-        symptom = Symptom.objects.get(pk=id)
+        symptom = Symptom.objects.get(pk=id) #выбор записи равной id таблицы
         form = SymptomForm(request.POST, instance = symptom)
         if form.is_valid():
             form.save()
@@ -229,9 +236,9 @@ def medicalRecord(request):
 class medicalRecordUpdateView(View):
 
     def get(self, request, id):
-        medicalRecord = Patient.objects.get(pk=id)
+        medicalRecord = Patient.objects.get(pk=id) #выбор записи равной id таблицы
         elements = Patient.objects.all()
-        form = MedicalRecordForm(instance = medicalRecord)
+        form = MedicalRecordForm(instance = medicalRecord) 
         return render(request, 'app/doctor/MedicalRecord.html', context = {'form': form, 'data':medicalRecord , 'elements': elements} )
 
     def post(self, request, id):
@@ -245,15 +252,16 @@ class medicalRecordUpdateView(View):
 
 # Удаление
 class medicalRecordDeleteView(DeleteView):
-    model = Patient
-    success_url = '/medicalRecord'
-    template_name = 'app/doctor/DELETE.html'
+    model = Patient # удаление производится для данныой модели
+    success_url = '/medicalRecord' # если адрес удачен, то проивходит ридерект на данную ссылку
+    template_name = 'app/doctor/DELETE.html' # шаблон для удаления
 
 
 
 # Рекомендации -------------------------------------------------------
 def recommendation(request):
-    error = ''
+    error = '' # в случае возникновения ошибки сюда будет записана информация
+    # поиск
     search_query = request.GET.get('search','')
     if search_query:
         elements = Patient.objects.filter(Q(description_recommendation__icontains=search_query) |
@@ -335,13 +343,13 @@ def patient(request):
 class patientUpdateView(View):
 
     def get(self, request, id):
-        patient = Patient.objects.get(pk=id)
+        patient = Patient.objects.get(pk=id) #выбор записи равной id таблицы
         elements = Patient.objects.all()
         form = PatientForm(instance = patient)
         return render(request, 'app/doctor/Patient.html', context = {'form': form, 'data':patient, 'elements': elements})
 
     def post(self, request, id):
-        patient = Patient.objects.get(pk=id)
+        patient = Patient.objects.get(pk=id) #выбор записи равной id таблицы
         form = PatientForm(request.POST, instance = patient)
         if form.is_valid():
             form.save()
@@ -391,7 +399,7 @@ class result_patient(DeleteView):
     template_name = 'app/result_patient.html'
 
 def logout_view(request):
-    logout(request)
+    logout(request) # выход из системы
     return redirect('index')
 
 
