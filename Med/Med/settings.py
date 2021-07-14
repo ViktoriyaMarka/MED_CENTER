@@ -134,11 +134,11 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = '/profile'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = 'edx860@gmail.com'
+EMAIL_HOST_USER = 'secret'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'XexeylhbrNb[jy/10012'
+EMAIL_HOST_PASSWORD = 'Nonono)'
 
 MEDIA_URL = 'report/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'report/media/')
